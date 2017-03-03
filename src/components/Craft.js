@@ -5,7 +5,7 @@ import p5 from "p5";
 
 const Craft = React.createClass({
   componentDidMount() {
-    var sketch = require('../crafts/' + this.props.params.title + '/main');
+    var sketch = require('../crafts/' + this.props.params.title + '/Main');
     this.craft = new p5(sketch.default, this.refs.wrapper)
   },
   render() {

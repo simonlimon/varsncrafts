@@ -9,10 +9,10 @@
     "semantic-ui": "^2.2.9"
   },
   "dependencies": {
+    "animejs": "^2.0.1",
     "p5": "^0.5.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-p5-wrapper": "0.0.4",
     "react-router": "^3.0.2",
     "semantic-ui-react": "^0.67.0"
   },
