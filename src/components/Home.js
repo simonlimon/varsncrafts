@@ -17,12 +17,11 @@ const crafts = require('../crafts.json');
 
 function generate_card(craft) {
   return (
-    <GridColumn>
-      <CraftCard image={craft.image}
+    <GridColumn key={craft.title}>
+      <CraftCard image={process.env.PUBLIC_URL + craft.image}
                  title={craft.title}
                  keywords={craft.keywords}
                  description={craft.description}
-                 key={craft.title}
       />
     </GridColumn>
   )
