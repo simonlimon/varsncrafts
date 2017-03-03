@@ -21,12 +21,17 @@ function sketch (p) {
     }
   };
 
-  p.mouseClicked = function () {
-    RandomRotateTiles()
+  //TODO Rotate on click
+
+  p.keyPressed = function () {
+    if (p.key === " ") {
+      RandomRotateTiles()
+    }
   }
 
   p.windowResized = function () {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
+    GenerateGrid() //TODO Preserve rotations
   }
 
   var Tile = function(x, y, r) {
@@ -68,6 +73,7 @@ function sketch (p) {
   }
 
   var GenerateGrid = function () {
+    tiles = []
     const num_x_tiles = p.floor(p.width / tile_size) + 1;
     const num_y_tiles = p.floor(p.height / tile_size) + 1;
 
