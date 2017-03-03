@@ -1,38 +1,33 @@
-import React, {
-  PropTypes,
-} from 'react';
+import React from 'react';
 
-import {Grid, GridColumn, CardGroup} from 'semantic-ui-react'
+import {Grid, GridColumn} from 'semantic-ui-react'
 
 import Title from './Title'
 import CraftCard from './CraftCard'
-
-const colors = [
-  'red', 'orange', 'yellow', 'olive', 'green', 'teal',
-  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black',
-]
 
 //noinspection JSUnresolvedFunction
 const crafts = require('../crafts.json');
 
 function generate_card(craft) {
   return (
-    <GridColumn key={craft.title}>
+    <GridColumn >
       <CraftCard image={process.env.PUBLIC_URL + craft.image}
                  title={craft.title}
                  keywords={craft.keywords}
                  description={craft.description}
+                 key={craft.title}
       />
     </GridColumn>
-  )
+  );
 }
 
 const Home = React.createClass({
   render() {
+    //noinspection JSUnresolvedFunction
     return (
       <div>
         <Title/>
-        <Grid columns={4} padded={true} centered>
+        <Grid columns={4} centered doubling padded={true}>
           {crafts.map(generate_card)}
         </Grid>
       </div>

@@ -1,8 +1,6 @@
-import React, {
-  PropTypes,
-} from 'react';
+import React from 'react';
 
-import { Card, Icon } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 import {Link} from 'react-router'
 
 const CraftCard = React.createClass({
@@ -10,13 +8,12 @@ const CraftCard = React.createClass({
     return (
       <div>
         <Link to={"/craft/" + this.props.title}>
-        <Card
-          link
-          image={this.props.image}
-          header={this.props.title}
-          meta={this.props.keywords}
-          description={this.props.description}
-          />
+          <Card
+            link
+            image={this.props.image}
+            header={this.props.title}
+            meta={this.props.keywords}
+            description={this.props.description}/>
         </Link>
       </div>
     );
