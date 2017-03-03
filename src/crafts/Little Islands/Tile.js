@@ -1,11 +1,11 @@
 import anime from 'animejs'
 
 export default class Tile  {
-  constructor(p, x, y, size) {
+  constructor(p, x, y, r, size) {
     this.p = p;
     this.x = x;
     this.y = y;
-    this.angle = this.p.HALF_PI;
+    this.angle = this.p.HALF_PI * r;
     this.size = size;
     this.animated = false;
   }

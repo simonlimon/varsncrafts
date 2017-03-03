@@ -47,13 +47,13 @@ function sketch (p) {
 
   var GenerateGrid = function () {
     tiles = [];
-    const num_x_tiles = p.floor(p.width / tile_size) + 1;
-    const num_y_tiles = p.floor(p.height / tile_size) + 1;
+    const num_x_tiles = p.ceil(p.width / tile_size) ;
+    const num_y_tiles = p.ceil(p.height / tile_size) ;
 
     for (let i = 0; i < num_y_tiles; i++) {
       tiles.push([]);
       for (let j = 0; j < num_x_tiles; j++) {
-        tiles[i].push(new Tile(p, tile_size * j, tile_size * i, tile_size))
+        tiles[i].push(new Tile(p, tile_size * j, tile_size * i, i + j, tile_size))
       }
     }
   };
