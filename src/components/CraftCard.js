@@ -13,7 +13,8 @@ const CraftCard = React.createClass({
             image={this.props.image}
             header={this.props.title}
             meta={this.props.keywords}
-            description={this.props.description}/>
+            description={this.props.description}
+            centered/>
         </Link>
       </div>
     );
