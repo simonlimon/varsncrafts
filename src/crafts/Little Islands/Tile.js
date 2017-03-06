@@ -29,11 +29,13 @@ export default class Tile  {
     if (!this.animated){
       this.animated = true;
       var that = this;
+
       anime({
-        targets: this,
-        angle: parseFloat(this.angle) + that.p.HALF_PI,
-        easing: 'easeInOutQuart',
-        elasticity: 100,
+        targets: that,
+        angle: parseFloat(that.angle) + that.p.HALF_PI,
+        duration: 1700,
+        easing: 'easeInOutElastic',
+        elasticity: 600,
         complete: function () {
           that.animated = false
         }
