@@ -12,6 +12,10 @@
     margin-left: 1em;
 }
 
+body {
+    height: 90%;
+}
+
 footer {
     padding-top: 5em;
     padding-bottom: 1em;
@@ -19,4 +23,3 @@ footer {
     text-align: center;
     bottom: 0;
 }
-
