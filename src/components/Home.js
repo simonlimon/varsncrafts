@@ -16,6 +16,7 @@ function generate_card(craft) {
                  keywords={craft.keywords}
                  description={craft.description}
                  key={craft.title}
+                 date={craft.date}
       />
   );
 }

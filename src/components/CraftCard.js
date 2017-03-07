@@ -12,8 +12,9 @@ const CraftCard = React.createClass({
             link
             image={this.props.image}
             header={this.props.title}
-            meta={this.props.keywords}
+            extra={this.props.keywords}
             description={this.props.description}
+            meta={this.props.date}
             centered/>
         </Link>
       </div>
@@ -25,7 +26,8 @@ CraftCard.propTypes = {
   image: React.PropTypes.string.isRequired,
   title: React.PropTypes.string.isRequired,
   keywords: React.PropTypes.string.isRequired,
-  description:  React.PropTypes.string.isRequired
+  description:  React.PropTypes.string.isRequired,
+  date: React.PropTypes.string.isRequired,
 };
 
 export default CraftCard;
