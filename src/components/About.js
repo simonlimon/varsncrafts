@@ -28,9 +28,11 @@ const About = React.createClass({
         open={this.state.modalOpen}
         onClose={this.handleClose}
         basic
-        size='small'>
+        size='small'
+        closeIcon='close'>
 
-        <Modal.Content centered>
+        <Modal.Content>
+          <h1></h1>
           <h4> Hi! This webpage is my personal playground. Every week-or-so I upload a new <i>craft</i>. These usually include:
             <ul>
               <li>A fun and interesting underlying concept</li>
