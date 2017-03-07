@@ -32,10 +32,10 @@ const About = React.createClass({
         closeIcon='close'>
 
         <Modal.Content>
-          <h1></h1>
-          <h4> Hi! This webpage is my personal playground. Every week-or-so I upload a new <i>craft</i>. These usually include:
+          <h1> </h1>
+          <h4> Hi! This website is my personal playground. Every week-or-so I upload a new <i>craft</i>. These usually include:
             <ul>
-              <li>A fun and interesting underlying concept</li>
+              <li>A Fun and interesting underlying concept</li>
               <li>Cool visuals</li>
               <li>Some kind of message</li>
             </ul>
