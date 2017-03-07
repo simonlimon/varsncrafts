@@ -5,5 +5,19 @@
     "description": "Small changes often unexpectedly affect the ways we are connected. This is a craft involving patterns and rotating tiles.",
     "keywords": "Truchet tiling | p5.js | anime.js",
     "date": "March 2017"
+  },
+  {
+    "title": "Triangles",
+    "image": "/assets/images/Truchet_base_tiling.svg",
+    "description": "More experimentation with patterns and rotating tiles, this time using sharper objects.",
+    "keywords": "Truchet tiling | p5.js | anime.js",
+    "date": "March 2017"
+  },
+  {
+    "title": "Labyrinth",
+    "image": "/assets/images/Truchet_labyrinth.png",
+    "description": "Truchet tiling one last time. Playing with sharp turns and dead ends lead to random labyrinths.",
+    "keywords": "Truchet tiling | p5.js | anime.js",
+    "date": "March 2017"
   }
 ]

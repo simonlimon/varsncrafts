@@ -1,23 +1,19 @@
 import anime from 'animejs'
 
 export default class Tile  {
-  constructor(p, x, y, r, size) {
+  constructor(p, x, y, r, size, draw_shape) {
     this.p = p;
     this.x = x;
     this.y = y;
     this.angle = this.p.HALF_PI * r;
     this.size = size;
     this.animated = false;
+    this.draw_shape = draw_shape
   }
 
   draw () {
     this.p.strokeWeight(4);
-    this.p.push();
-    this.p.translate(this.x+this.size/2,this.y+this.size/2);
-    this.p.rotate(this.angle);
-    this.p.arc(-this.size/2, -this.size/2, this.size, this.size, 0, this.p.HALF_PI);
-    this.p.arc(this.size/2, this.size/2, this.size, this.size, this.p.PI, -this.p.HALF_PI);
-    this.p.pop()
+    this.draw_shape(this.p);
   };
 
   draw_edge () {

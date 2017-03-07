@@ -6,8 +6,7 @@ import {Link} from 'react-router'
 const CraftCard = React.createClass({
   render() {
     return (
-      <div>
-        <Link to={"/craft/" + this.props.title}>
+        <Link to={"/craft/" + this.props.title} className="craft_card">
           <Card
             link
             image={this.props.image}
@@ -17,7 +16,6 @@ const CraftCard = React.createClass({
             meta={this.props.date}
             centered/>
         </Link>
-      </div>
     );
   }
 });

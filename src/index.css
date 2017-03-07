@@ -4,8 +4,9 @@
     max-width: 22em;
 }
 
-.crafts {
-    padding: 2em;
+.craft_card {
+    /*padding: 1em;*/
+    margin: 2em 1em 1em 1em;
 }
 
 .info {

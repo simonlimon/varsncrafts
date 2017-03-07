@@ -43,7 +43,7 @@ const About = React.createClass({
           </h4>
         </Modal.Content>
 
-        <footer>© Simon Posada Fishman | All content published under an MIT License</footer>
+        <footer>© Simon Posada Fishman | All content published under the MIT License</footer>
       </Modal>
     );
   }
