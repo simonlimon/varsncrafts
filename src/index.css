@@ -1,4 +1,23 @@
-.main_title {
-    padding-top: 2em;
-    padding-bottom: 2em;
+
+.site_header {
+    margin: auto;
+    max-width: 22em;
 }
+
+.crafts {
+    padding: 2em;
+}
+
+.info {
+    margin-left: 1em;
+}
+
+footer {
+    padding-top: 5em;
+    padding-bottom: 1em;
+    position: relative;
+    text-align: center;
+    bottom: 0;
+    /*width: 100%;*/
+}
+

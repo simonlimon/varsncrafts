@@ -33,9 +33,9 @@ export default class Tile  {
       anime({
         targets: that,
         angle: parseFloat(that.angle) + that.p.HALF_PI,
-        duration: 1700,
-        easing: 'easeInOutElastic',
-        elasticity: 600,
+        duration: 1500,
+        easing: 'easeOutElastic',
+        elasticity: 400,
         complete: function () {
           that.animated = false
         }

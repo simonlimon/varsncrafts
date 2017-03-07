@@ -1,9 +1,10 @@
 import React from 'react';
 
-import {Grid, GridColumn, Container, CardGroup} from 'semantic-ui-react'
+import {CardGroup} from 'semantic-ui-react'
 
 import Title from './Title'
 import CraftCard from './CraftCard'
+import About from './About'
 
 //noinspection JSUnresolvedFunction
 const crafts = require('../crafts.json');
@@ -24,8 +25,11 @@ const Home = React.createClass({
     //noinspection JSUnresolvedFunction
     return (
       <div>
-        <Title/>
-        <CardGroup stackable className={"centered padded"}>
+        <div className="site_header">
+          <About/>
+          <Title/>
+        </div>
+        <CardGroup stackable className={"centered crafts"}>
           {crafts.map(generate_card)}
         </CardGroup>
       </div>
