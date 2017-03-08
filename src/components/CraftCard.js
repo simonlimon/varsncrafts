@@ -13,7 +13,7 @@ const CraftCard = React.createClass({
     this.anim = anime ({
       targets: '.' + this.name,
       translateY: Math.random() * 3 + 3,
-      duration: Math.random() * 1000 + 700,
+      duration: Math.random() * 1300 + 900,
       loop: true,
       direction: 'alternate',
     })
