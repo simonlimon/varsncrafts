@@ -8,9 +8,9 @@ function generate_sketch (p, draw_shape) {
 
   p.setup = function () {
     if (p.windowWidth > 600) {
-      tile_size = 90
+      tile_size = 70
     } else {
-      tile_size = p.map(p.windowWidth, 10, 600, 30, 90)
+      tile_size = p.map(p.windowWidth, 100, 600, 10, 70)
     }
     var canvas = p.createCanvas(p.windowWidth, p.windowHeight);
     canvas.parent = "Truchet";
@@ -33,6 +33,8 @@ function generate_sketch (p, draw_shape) {
   p.keyPressed = function () {
     if (p.key === " ") {
       RandomRotateTiles()
+    } else if (p.key == "S"){
+      p.saveCanvas('tiling', 'png');
     }
   };
 
