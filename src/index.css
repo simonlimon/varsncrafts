@@ -7,7 +7,6 @@
 .craft_card {
     /*padding: 1em;*/
     margin: 2em 1em 1em 1em;
-    opacity: 0;
 }
 
 .info {
@@ -24,4 +23,9 @@ footer {
     position: relative;
     text-align: center;
     bottom: 0;
+}
+
+#modal {
+    margin:0 auto;
+    display: table;
 }

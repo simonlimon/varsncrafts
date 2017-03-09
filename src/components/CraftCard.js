@@ -10,26 +10,25 @@ const CraftCard = React.createClass({
     console.log(this.name)
   },
   componentDidMount() {
-    this.anim = anime ({
-      targets: '.' + this.name,
-      easing: 'easeInQuad',
-      opacity: [0,1],
-      duration: 500
-    });
-
-    this.anim = anime ({
-      targets: '.' + this.name,
-      translateY: Math.random() * 3 + 3,
-      duration: Math.random() * 1300 + 900,
-      loop: true,
-      direction: 'alternate',
-    })
+    if (this.props.bouncing) {
+      this.anim = anime ({
+        targets: '.' + this.name,
+        translateY: [Math.random() * -3 - 3, 0],
+        duration: Math.random() * 1300 + 900,
+        loop: true,
+        direction: 'alternate',
+      })
+    }
   },
   handleMouseEnter () {
-    this.anim.pause()
+    if (this.props.bouncing) {
+      this.anim.pause()
+    }
   },
   handleMouseLeave() {
-    this.anim.play()
+    if (this.props.bouncing) {
+      this.anim.play()
+    }
   },
   render() {
     return (

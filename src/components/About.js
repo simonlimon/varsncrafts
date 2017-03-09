@@ -21,10 +21,7 @@ const About = React.createClass({
   render() {
     return (
       <Modal
-        trigger={<Button onClick={this.handleOpen}
-                         floated="right"
-                         icon="info"
-                         compact circular basic className="info"/>}
+        className={"info_modal"}
         open={this.state.modalOpen}
         onClose={this.handleClose}
         basic
@@ -39,7 +36,7 @@ const About = React.createClass({
               <li>Cool visuals</li>
               <li>Some kind of message</li>
             </ul>
-            I hope they stir your curiosity and creativity, and that your inner {require('../random_words.json')[Math.floor(Math.random()*567)]} is awaken. Have fun!
+            I hope they stir your curiosity and creativity, and that your inner {require('../random_words.json')[Math.floor(Math.random()*567)]} self is awaken. Have fun!
           </h4>
         </Modal.Content>
 

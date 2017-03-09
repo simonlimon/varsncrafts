@@ -24,6 +24,15 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Vars & Crafts</title>
+
+    <!--Semantic UI-->
+    <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/semantic/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="%PUBLIC_URL%/semantic/semantic.min.js"></script>
+
   </head>
   <body>
     <div id="root"></div>
@@ -37,5 +46,27 @@
       To begin the development, run `npm start`.
       To create a production bundle, use `npm run build`.
     -->
+    <div class="ui basic modal">
+      <div id="modal">
+        <h4> Hi! This website is my personal playground. Every week-or-so I upload a new <i>craft</i>. These usually include:
+          <ul>
+            <li>A Fun and interesting underlying concept</li>
+            <li>Cool visuals</li>
+            <li>Some kind of message</li>
+          </ul>
+          I hope they stir your curiosity and creativity. Have fun!
+        </h4>
+        <footer>© Simon Posada Fishman | All content published under the MIT License</footer>
+      </div>
+
+    </div>
+
+    <script>
+      function show_modal() {
+        $('.ui.basic.modal')
+          .modal('show');
+      }
+    </script>
+
   </body>
 </html>

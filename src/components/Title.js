@@ -7,17 +7,22 @@ import { Header, Icon} from 'semantic-ui-react'
 const Title = React.createClass({
   componentDidMount () {
     var that = this;
-    window.setInterval(function(){
-      that.setState ({
-          text: 'Vars & Crafts',
-          index: that.state.index += 1
-      })
-    }, 50);
+    window.setTimeout(function () {
+      this.interval = window.setInterval(function(){
+        that.setState ({
+          text_index: that.state.text_index + 1
+        });
+
+        if (that.state.index == 'Vars & Crafts'.length)
+          window.clearInterval(that.interval)
+
+      }, 77);
+    }, 100)
+
   },
   getInitialState() {
     return {
-      text: 'Vars & Crafts',
-      index: 1
+      text_index: 1
     }
   },
   render() {
@@ -25,7 +30,7 @@ const Title = React.createClass({
         <Header as='h1' icon textAlign='center' className='title'>
           <Icon name='hand peace' circular/>
           <Header.Content>
-            {this.state.text.substring(0, this.state.index)}
+            {'Vars & Crafts'.substring(0, this.state.text_index)}
           </Header.Content>
         </Header>
     );
