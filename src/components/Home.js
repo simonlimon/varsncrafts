@@ -8,10 +8,9 @@ import CraftCard from './CraftCard'
 //noinspection JSUnresolvedFunction
 const crafts = require('../crafts.json');
 
-const bouncing_card = Math.floor(Math.random() * Object.keys(crafts).length)
+const bouncing_card = Math.floor(Math.random() * Object.keys(crafts).length);
 
 function generate_card(craft, i) {
-  console.log(bouncing_card)
   return (
       <CraftCard image={process.env.PUBLIC_URL + craft.image}
                  title={craft.title}

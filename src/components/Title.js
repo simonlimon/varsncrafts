@@ -5,10 +5,13 @@ import React, {
 import { Header, Icon} from 'semantic-ui-react'
 
 const Title = React.createClass({
+  componentWillUnmount() {
+    window.clearInterval(this.interval)
+  },
   componentDidMount () {
     var that = this;
     window.setTimeout(function () {
-      this.interval = window.setInterval(function(){
+      that.interval = window.setInterval(function(){
         that.setState ({
           text_index: that.state.text_index + 1
         });
@@ -18,16 +21,23 @@ const Title = React.createClass({
 
       }, 77);
     }, 100)
-
   },
   getInitialState() {
-    return {
-      text_index: 1
+    if (!window.didAnimateTitle) {
+      window.didAnimateTitle = true;
+      return {
+        text_index: 1
+      }
+    } else {
+      return {
+        text_index: 'Vars & Crafts'.length
+      }
     }
+
   },
   render() {
     return (
-        <Header as='h1' icon textAlign='center' className='title'>
+        <Header as='h1' icon textAlign='center'>
           <Icon name='hand peace' circular/>
           <Header.Content>
             {'Vars & Crafts'.substring(0, this.state.text_index)}

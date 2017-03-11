@@ -13,7 +13,7 @@ function generate_sketch (p, draw_shape) {
       tile_size = p.map(p.windowWidth, 100, 600, 10, 70)
     }
     var canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-    canvas.parent = "Truchet";
+    canvas.parent("sketch");
 
     GenerateGrid();
     p.fill(0,0,0,0);

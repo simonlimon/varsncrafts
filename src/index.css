@@ -13,6 +13,19 @@
     margin-left: 1em;
 }
 
+.craft {
+    position: fixed;
+    top: 0;
+    size: auto;
+    transform: scale(0.5);
+}
+
+.navbar {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+}
+
 body {
     height: 90%;
 }
