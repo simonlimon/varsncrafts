@@ -4,7 +4,6 @@ import {CardGroup, Button} from 'semantic-ui-react'
 
 import Title from './Title'
 import CraftCard from './CraftCard'
-import About from './About'
 
 //noinspection JSUnresolvedFunction
 const crafts = require('../crafts.json');

@@ -7,26 +7,28 @@ import anime from 'animejs'
 const CraftCard = React.createClass({
   componentWillMount() {
     this.name = this.props.title.replace(/\s+/g, "")
-    console.log(this.name)
   },
   componentDidMount() {
+    var that = this;
     if (this.props.bouncing) {
-      this.anim = anime ({
-        targets: '.' + this.name,
-        translateY: [Math.random() * -3 - 3, 0],
-        duration: Math.random() * 1300 + 900,
-        loop: true,
-        direction: 'alternate',
-      })
+      setTimeout(function () {
+        that.anim = anime ({
+          targets: '.' + that.name,
+          translateY: [Math.random() * -3 - 3, 0],
+          duration: Math.random() * 1300 + 900,
+          loop: true,
+          direction: 'alternate',
+        })
+      }, 2000)
     }
   },
   handleMouseEnter () {
-    if (this.props.bouncing) {
+    if (this.anim) {
       this.anim.pause()
     }
   },
   handleMouseLeave() {
-    if (this.props.bouncing) {
+    if (this.anim) {
       this.anim.play()
     }
   },
