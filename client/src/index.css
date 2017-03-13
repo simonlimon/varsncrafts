@@ -1,0 +1,48 @@
+
+.site_header {
+    margin: auto;
+    max-width: 22em;
+}
+
+.craft_card {
+    /*padding: 1em;*/
+    margin: 2em 1em 1em 1em;
+}
+
+.info {
+    margin-left: 1em;
+}
+
+.craft {
+    position: fixed;
+    top: 0;
+    size: auto;
+    transform: scale(0.5);
+}
+
+.card {
+    height: 33em;
+}
+
+.navbar {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+}
+
+body {
+    height: 90%;
+}
+
+footer {
+    padding-top: 5em;
+    padding-bottom: 1em;
+    position: relative;
+    text-align: center;
+    bottom: 0;
+}
+
+#modal {
+    margin:0 auto;
+    display: table;
+}
