@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "react-ui",
   "homepage": "http://www.varsncrafts.com/",
   "version": "0.1.0",
   "private": true,
@@ -28,5 +28,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
