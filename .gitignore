@@ -17,6 +17,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea/
-semantic/
-!semantic/dist
+/react-ui/semantic/*
+!/react-ui/semantic/dist
 config.js
