@@ -21,8 +21,8 @@ app.get('/api/epic_image', function (req, res) {
       + date[0] + '/' + date[1] + '/' + date[2] +
       "/png/" + result.data[0].image +'.png';
 
-    if (!fs.exists('server/tmp')){
-      fs.mkdir('server/tmp');
+    if (!fs.existsSync('server/tmp')){
+      fs.mkdirSync('server/tmp');
     }
 
     var filepath = 'server/tmp/' + result.data[0].image + '.png'
@@ -40,17 +40,16 @@ app.get('/api/epic_image', function (req, res) {
       })
     }
 
-    if (!fs.exists(filepath)) {
-      send_png()
-    } else {
-      var stream = request(image_link).pipe(
-        fs.createWriteStream(filepath)
-      );
+    if (fs.existsSync(filepath)) {
+        send_png()
+      } else {
+        var stream = request(image_link).pipe(
+          fs.createWriteStream(filepath)
+        );
+        stream.on('finish', send_png)
+      }
+    })
 
-      stream.on('finish', send_png)
-    }
-
-  });
 });
 
 // All remaining requests return the React app, so it can handle routing.
