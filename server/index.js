@@ -20,6 +20,10 @@ app.get('/api/epic_image', function (req, res) {
       + date[0] + '/' + date[1] + '/' + date[2] +
       "/png/" + result.data[0].image +'.png';
 
+    if (!fs.exists('server/tmp')){
+      fs.mkdir('server/tmp');
+    }
+
     var filepath = 'server/tmp/' + result.data[0].image + '.png'
 
     function send_png () {
