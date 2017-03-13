@@ -19,11 +19,6 @@ function sketch(p) {
     earth.draw()
   };
 
-  p.windowResized = function () {
-    p.resizeCanvas(p.windowWidth, p.windowHeight);
-    p.setup();
-  };
-
 }
 
 

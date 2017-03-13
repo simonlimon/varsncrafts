@@ -41,9 +41,10 @@ app.get('/api/epic_image', function (req, res) {
     }
 
     if (fs.existsSync(filepath)) {
-        send_png()
+      send_png()
       } else {
-        var stream = request(image_link).pipe(
+      console.log('Fetching png from NASA');
+      var stream = request(image_link).pipe(
           fs.createWriteStream(filepath)
         );
         stream.on('finish', send_png)

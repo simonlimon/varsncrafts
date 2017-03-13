@@ -3,7 +3,7 @@ import axios from 'axios'
 export default class Earth {
   constructor(p) {
     this.p = p
-    this.size = p.map (p.windowWidth, 100, 1000, 10, 150);
+    this.size = p.map (p.windowWidth, 100, 1000, 50, 150);
     this.fetchEPIC()
 
   }
