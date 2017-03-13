@@ -20,6 +20,10 @@
     transform: scale(0.5);
 }
 
+.card {
+    height: 33em;
+}
+
 .navbar {
     position: absolute;
     top: 0.5em;

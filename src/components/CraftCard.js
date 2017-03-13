@@ -14,7 +14,8 @@ const CraftCard = React.createClass({
       setTimeout(function () {
         that.anim = anime ({
           targets: '.' + that.name,
-          translateY: [Math.random() * -3 - 3, 0],
+          easing: 'easeInElastic',
+          translateY: [0, Math.random() * - 5 - 5],
           duration: Math.random() * 1300 + 900,
           loop: true,
           direction: 'alternate',

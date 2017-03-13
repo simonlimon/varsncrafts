@@ -1,9 +1,10 @@
 import React from 'react';
 import p5 from "p5";
-
 import {Button} from 'semantic-ui-react'
-
 import anime from 'animejs'
+
+//TODO Better back button
+//TODO Preserve home scroll
 
 const Craft = React.createClass({
   handleClose() {
