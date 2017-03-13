@@ -7,6 +7,8 @@ const request = require("request");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.set('view engine', 'html');
+
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
