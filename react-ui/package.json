@@ -18,11 +18,10 @@
     "react-hover-observer": "^1.1.1",
     "react-router": "^3.0.2",
     "react-router-transition": "0.0.6",
+    "request": "^2.81.0",
     "semantic-ui-react": "^0.67.0"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

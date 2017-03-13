@@ -8,8 +8,8 @@ function sketch(p) {
     var canvas = p.createCanvas(p.windowWidth, p.windowHeight);
     canvas.parent("sketch");
 
-    p.fill(0,0,0,0);
     p.smooth();
+    p.imageMode(p.CENTER);
 
     earth = new Earth(p);
   };

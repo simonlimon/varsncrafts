@@ -1,11 +1,13 @@
 {
-  "name": "varsncrafts",
+  "name": "react-ui",
   "version": "1.0.0",
   "engines": {
     "node": "6.10.x"
   },
   "scripts": {
     "start": "node server",
+    "deploy": "git push heroku master",
+    "dev": "nodemon server",
     "heroku-postbuild": "cd react-ui/ && npm install --only=dev && npm install && npm run build"
   },
   "cacheDirectories": [
@@ -17,8 +19,12 @@
     "url": "https://github.com/simonlimon/varsncrafts.git"
   },
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
   "dependencies": {
-    "express": "^4.15.2"
+    "axios": "^0.15.3",
+    "express": "^4.15.2",
+    "request": "^2.81.0"
   }
 }
