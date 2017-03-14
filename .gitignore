@@ -18,4 +18,4 @@ yarn-error.log*
 
 .idea/
 config.js
-server/tmp
+server/api/tmp

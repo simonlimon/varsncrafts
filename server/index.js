@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
-const axios = require('axios');
-const fs = require('fs');
-const request = require("request");
+
+// API imports
+const epic_image = require('./api/epic_image');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,43 +14,7 @@ app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
 // Fetch latest EPIC image of earth
 app.get('/api/epic_image', function (req, res) {
-
-  axios.get('https://epic.gsfc.nasa.gov/api/natural').then(function (result) {
-    var date = result.data[0].date.split(' ')[0].split('-');
-    var image_link = "https://epic.gsfc.nasa.gov/archive/natural/"
-      + date[0] + '/' + date[1] + '/' + date[2] +
-      "/png/" + result.data[0].image +'.png';
-
-    if (!fs.existsSync('server/tmp')){
-      fs.mkdirSync('server/tmp');
-    }
-
-    var filepath = 'server/tmp/' + result.data[0].image + '.png'
-
-    function send_png () {
-      console.log('Serving png');
-      fs.readFile(filepath, function(err, data) {
-        if (err) {
-          res.status(500)
-          res.render('error', { error: err })
-        } else {
-          res.writeHead(200, {'Content-Type': 'image/jpeg'});
-          res.end(data);
-        }
-      })
-    }
-
-    if (fs.existsSync(filepath)) {
-      send_png()
-      } else {
-      console.log('Fetching png from NASA');
-      var stream = request(image_link).pipe(
-          fs.createWriteStream(filepath)
-        );
-        stream.on('finish', send_png)
-      }
-    })
-
+  epic_image(res)
 });
 
 // All remaining requests return the React app, so it can handle routing.
