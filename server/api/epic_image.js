@@ -4,13 +4,19 @@ const request = require('request');
 const sharp = require('sharp');
 const uid = require('uid');
 
-function get(res) {
+function get(res, only_meta) {
   axios.get('https://epic.gsfc.nasa.gov/api/natural').then(function (result) {
-    var date = result.data[0].date.split(' ')[0].split('-');
+    if (only_meta){
+      res.setHeader('Content-Type', 'application/json');
+      res.send(result.data[result.data.length-1])
+      return
+    }
+
+    var date = result.data[result.data.length-1].date.split(' ')[0].split('-');
     var image_link = "https://epic.gsfc.nasa.gov/archive/natural/"
       + date[0] + '/' + date[1] + '/' + date[2] +
       "/png/" + result.data[0].image +'.png';
-    var filepath = __dirname + '/tmp/' + result.data[0].image + '.png';
+    var filepath = __dirname + '/tmp/' + result.data[result.data.length-1].image + '.png';
 
     if (!fs.existsSync(__dirname + '/tmp')){
       fs.mkdirSync(__dirname + '/tmp');
