@@ -15,7 +15,7 @@ function sketch(p) {
 
     earth = new Earth(p);
 
-    asteroids = Asteroid.load_asteroids()
+    asteroids = Asteroid.load_asteroids(p)
 
   };
 
@@ -23,6 +23,10 @@ function sketch(p) {
     p.translate(p.windowWidth/2, p.windowHeight/2);
     p.background(255);
     earth.draw()
+
+    for (var i = 0; i < asteroids.length; i++) {
+      asteroids[i].draw()
+    }
   };
 
   p.windowResized = function () {
