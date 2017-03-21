@@ -19,7 +19,7 @@ function sketch(p) {
     earth = new Earth(p, function () {
       asteroids = Asteroid.load_asteroids(p, function () {
         $('body').append('<div class="ui incoming year" data-inverted="" data-tooltip="Year" >'+year+'</div>')
-        setInterval(function () {
+        p.interval = setInterval(function () {
           year++;
           $('.incoming.year').html(year.toString())
         }, 1000)

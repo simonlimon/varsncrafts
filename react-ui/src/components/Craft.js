@@ -40,7 +40,13 @@ const Craft = React.createClass({
     );
   },
   componentWillUnmount() {
+    if (this.craft.interval) {
+      clearInterval(this.craft.interval)
+    }
+    $('.incoming.year').remove()
+    $('.ui.circle').remove()
     this.craft.remove()
+
   }
 });
 
