@@ -3,10 +3,10 @@ import axios from 'axios'
 
 export default class Earth {
 
-  constructor(p) {
+  constructor(p, callback) {
     this.p = p
     this.size = p.map (p.windowWidth, 100, 1000, 80, 200);
-    this.fetchEPIC()
+    this.fetchEPIC(callback)
     var that = this
     axios.get('api/epic_image/meta').then(function (result) {
       that.meta = result.data
@@ -23,7 +23,7 @@ export default class Earth {
     }
   }
 
-  fetchEPIC () {
+  fetchEPIC (callback) {
     var p = this.p;
     var that = this;
     this.show_loader();
@@ -31,6 +31,7 @@ export default class Earth {
     p.loadImage('http://' + window.location.host + '/api/epic_image', function (img) {
       that.earth_img = img;
       that.hide_loader()
+      callback()
     }, function (error) {
       console.log('error')
     })

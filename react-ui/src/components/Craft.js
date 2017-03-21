@@ -9,6 +9,9 @@ import $ from 'jquery'
 
 const Craft = React.createClass({
   handleClose() {
+    $('.incoming.year').remove()
+    $('.ui.circle').remove()
+
     this.props.router.push('/');
     // anime({
     //   targets: '.craft',
@@ -38,7 +41,6 @@ const Craft = React.createClass({
   },
   componentWillUnmount() {
     this.craft.remove()
-    $('.ui.circle').remove()
   }
 });
 

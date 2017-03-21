@@ -46,3 +46,12 @@ footer {
     margin:0 auto;
     display: table;
 }
+
+.incoming.year {
+    position: absolute;
+    bottom: 20px;
+    width: 98%;
+    font-size: 2em;
+    text-align: center;
+    color: lightgray;
+}
