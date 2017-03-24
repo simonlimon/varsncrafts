@@ -40,9 +40,10 @@ function sketch(p) {
 
     if (asteroids) {
       for (var i = 0; i < asteroids.length; i++) {
-        if (!collision(asteroids[i].pos)) {
-          asteroids[i].draw()
+        if (collision(asteroids[i].pos)) {
+          asteroids[i].explode()
         }
+        asteroids[i].draw()
       }
     }
 

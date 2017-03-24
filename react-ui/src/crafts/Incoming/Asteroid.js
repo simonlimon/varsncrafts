@@ -17,15 +17,62 @@ export default class Asteroid {
     this.a = p.createVector(0,0)
   }
 
+  explode() {
+    if (this.exploded) return;
+    this.anim.pause()
+    var p = this.p;
+    this.exploded = true;
+    this.particles = [];
+    var quantity = Math.floor(p.map(this.diam, 0, 20, 0, 50));
+    for(var i = 0; i < quantity ; i++) {
+      this.particles.push({
+        pos: p.createVector(parseFloat(this.pos.x),
+          parseFloat(this.pos.y)),
+        vel: p.createVector(p.random(-1, 1) * 5, p.random(-1, 1) * 5),
+        acc: p.createVector(p.random(-0.2, 0.2), p.random(-0.2, 0.2)),
+        diam: (this.diam * 0.8) * Math.random(),
+        lifespan: 255.0,
+        r: p.random(255),
+        g: p.random(255),
+        b: p.random(255)
+      })
+    }
+  }
+
+  update_particles() {
+    for (var i = 0; i < this.particles.length; i++) {
+      var prcle = this.particles[i];
+      prcle.pos = prcle.pos.add(prcle.vel);
+      // prcle.vel.add(prcle.acc);
+      prcle.lifespan -= 2;
+      if (prcle.lifespan <= 0) {
+        this.particles.splice(i, 1)
+      }
+    }
+  }
+
   draw() {
-    this.p.fill(130)
-    this.p.ellipse(this.pos.x, this.pos.y, this.diam, this.diam)
-    this.pos.add(this.v)
-    this.v.add(this.a)
+    var p = this.p;
+    if (this.exploded) {
+      for(var i = 0; i < this.particles.length ; i++) {
+        var prcle = this.particles[i];
+        p.push();
+        p.noStroke();
+        p.fill(prcle.r, prcle.g, prcle.b, prcle.lifespan)
+        p.ellipse(prcle.pos.x, prcle.pos.y, prcle.diam, prcle.diam)
+        p.pop()
+      }
+      this.update_particles()
+    } else {
+      p.fill(130)
+      p.ellipse(this.pos.x, this.pos.y, this.diam, this.diam)
+      this.pos.add(this.v)
+      this.v.add(this.a)
+    }
   }
 
   start_animation(duration) {
-    anime({
+    this.anim = anime({
       targets: this.pos,
       x: 0,
       y: 0,
