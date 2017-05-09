@@ -7,8 +7,8 @@ export default class Walker {
   draw() {
     var p = this.p;
     p.noiseSeed(this.seed);
-    var x = p.width * p.noise(this.t);
-    var y = p.height * p.noise(this.t+5);
+    var x = p.width * 2 * (p.noise(this.t) - 0.25);
+    var y = p.height * 2 * (p.noise(this.t+5) - 0.25);
     var r = 255 * p.noise(this.t+10);
     var g = 255 * p.noise(this.t+15);
     var b = 255 * p.noise(this.t+20);
@@ -18,6 +18,6 @@ export default class Walker {
     p.ellipse(x, y, 75, 75);
   }
   update() {
-    this.t += this.p.random() * 0.008;
+    this.t += this.p.random() * 0.006;
   }
 }
