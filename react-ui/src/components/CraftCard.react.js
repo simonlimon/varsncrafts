@@ -11,7 +11,7 @@ class CraftCard extends React.PureComponent {
     keywords: React.PropTypes.string.isRequired,
     description:  React.PropTypes.string.isRequired,
     date: React.PropTypes.string.isRequired,
-    type: React.PropTypes.oneOf(['p5'])
+    type: React.PropTypes.oneOf(['p5', 'react'])
   };
 
   componentWillMount() {

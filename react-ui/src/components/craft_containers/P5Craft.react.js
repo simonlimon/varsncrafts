@@ -1,6 +1,5 @@
 import React from 'react'
 import p5 from "p5"
-import anime from 'animejs'
 import $ from 'jquery'
 
 //TODO Better back button
@@ -11,12 +10,6 @@ class P5Craft extends React.PureComponent {
     var sketch = require('../../crafts/p5/' + this.props.title + '/Main');
     //noinspection JSPotentiallyInvalidConstructorUsage
     this.craft = new p5(sketch.default);
-    anime({
-      targets: '.craft',
-      scale: [0.9, 1],
-      easing: 'easeOutQuad',
-      duration: 500,
-    })
   }
 
   componentWillUnmount() {

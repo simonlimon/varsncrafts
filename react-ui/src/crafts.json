@@ -1,10 +1,18 @@
 [
   {
+    "title": "Wiki Explore",
+    "image": "/assets/images/wikipedia.png",
+    "description": "A random walk through wikipedia. It's fascinating how everything is interconnected.",
+    "keywords": "Wikipedia | React Konva | React Motion",
+    "date": "August 2017",
+    "type": "react"
+  },
+  {
     "title": "Perlin Walks",
     "image": "/assets/images/walks.png",
     "description": "Colorful circles gain life with the aid of Perlin noise.",
     "keywords": "Perlin noise | p5.js",
-    "date": "April 2017",
+    "date": "May 2017",
     "type": "p5"
   },
   {
@@ -12,7 +20,7 @@
     "image": "/assets/images/incoming.jpg",
     "description": "NASA Asteroid data + Recent earth imagery + Asteroids exploding into multicolored particles.",
     "keywords": "NASA APIs | Axios | Node",
-    "date": "March 2017",
+    "date": "April 2017",
     "type": "p5"
   },
   {
