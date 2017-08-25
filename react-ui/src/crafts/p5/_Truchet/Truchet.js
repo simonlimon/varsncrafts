@@ -1,4 +1,4 @@
-import Tile from '../_Truchet/Tile'
+import Tile from './Tile'
 
 // TODO Mobile: rotate on shake
 

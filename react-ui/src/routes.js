@@ -1,14 +1,14 @@
 import React from 'react';
-import NavBar from './components/NavBar.react';
+import NavTransition from './components/NavTransition.react';
 import Home from './components/Home.react';
-import Craft from './components/Craft.react';
+import P5Craft from './components/craft_containers/P5Craft.react';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 
 const routes = (
   <Router history={hashHistory}>
-    <Route path={'/'} component={NavBar}>
+    <Route path={'/'} component={NavTransition}>
       <IndexRoute component={Home}/>
-      <Route path={"craft/:title"} component={Craft}/>
+      <Route path={"crafts/p5/:title"} component={P5Craft}/>
     </Route>
   </Router>
 );
