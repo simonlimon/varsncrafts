@@ -1,7 +1,7 @@
 import React from 'react';
-import NavBar from './components/NavBar';
-import Home from './components/Home';
-import Craft from './components/Craft';
+import NavBar from './components/NavBar.react';
+import Home from './components/Home.react';
+import Craft from './components/Craft.react';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 
 const routes = (
