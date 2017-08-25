@@ -1,16 +1,7 @@
 import React from 'react';
 import { RouteTransition } from 'react-router-transition';
 
-
-const NavBar = React.createClass({
-  getInitialState() {
-    return {hidden: false}
-  },
-  toggleHidden() {
-    this.setState({
-      hidden: !this.state.hidden
-    })
-  },
+class NavTransition extends React.PureComponent {
   render() {
     return (
       <div>
@@ -26,6 +17,6 @@ const NavBar = React.createClass({
       </div>
     );
   }
-});
+}
 
-export default NavBar;
+export default NavTransition;

@@ -19,11 +19,12 @@ function generate_card(craft, i) {
                  key={craft.title}
                  date={craft.date}
                  bouncing={bouncing_card === i}
+                 type={craft.type}
       />
   );
 }
 
-const Home = React.createClass({
+class Home extends React.PureComponent {
   render() {
     //noinspection JSUnresolvedFunction
     return (
@@ -41,6 +42,6 @@ const Home = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default Home;

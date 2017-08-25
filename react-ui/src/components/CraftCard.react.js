@@ -4,15 +4,25 @@ import { Card } from 'semantic-ui-react'
 import { Link } from 'react-router'
 import anime from 'animejs'
 
-const CraftCard = React.createClass({
+class CraftCard extends React.PureComponent {
+  static propTypes = {
+    image: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string.isRequired,
+    keywords: React.PropTypes.string.isRequired,
+    description:  React.PropTypes.string.isRequired,
+    date: React.PropTypes.string.isRequired,
+    type: React.PropTypes.oneOf(['p5'])
+  };
+
   componentWillMount() {
     this.name = this.props.title.replace(/\s+/g, "")
-  },
+  }
+
   componentDidMount() {
     var that = this;
     if (this.props.bouncing) {
-      setTimeout(function () {
-        that.anim = anime ({
+      setTimeout(() => {
+        this.anim = anime ({
           targets: '.' + that.name,
           easing: 'easeInElastic',
           translateY: [0, Math.random() * - 5 - 5],
@@ -22,20 +32,23 @@ const CraftCard = React.createClass({
         })
       }, 2000)
     }
-  },
-  handleMouseEnter () {
+  }
+
+  handleMouseEnter = () => {
     if (this.anim) {
       this.anim.pause()
     }
-  },
-  handleMouseLeave() {
+  };
+
+  handleMouseLeave = () => {
     if (this.anim) {
       this.anim.play()
     }
-  },
+  };
+
   render() {
     return (
-        <Link to={"/craft/" + this.props.title} className={"craft_card " + this.name}
+        <Link to={"/crafts/" + this.props.type + '/' + this.props.title} className={"craft_card " + this.name}
               onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
           <Card
             raised
@@ -49,14 +62,6 @@ const CraftCard = React.createClass({
         </Link>
     );
   }
-});
-
-CraftCard.propTypes = {
-  image: React.PropTypes.string.isRequired,
-  title: React.PropTypes.string.isRequired,
-  keywords: React.PropTypes.string.isRequired,
-  description:  React.PropTypes.string.isRequired,
-  date: React.PropTypes.string.isRequired,
-};
+}
 
 export default CraftCard;

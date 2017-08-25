@@ -1,13 +1,28 @@
-import React, {
-  PropTypes,
-} from 'react';
+import React from 'react';
 
 import { Header, Icon} from 'semantic-ui-react'
 
-const Title = React.createClass({
+class Title extends React.Component {
+  constructor(props) {
+    super(props);
+
+    if (!window.didAnimateTitle) {
+      window.didAnimateTitle = true;
+      this.state = {
+        text_index: 1
+      }
+    } else {
+      this.state = {
+        text_index: 'Vars & Crafts'.length
+      }
+    }
+
+  }
+
   componentWillUnmount() {
     window.clearInterval(this.interval)
-  },
+  }
+
   componentDidMount () {
     var that = this;
     window.setTimeout(function () {
@@ -16,25 +31,13 @@ const Title = React.createClass({
           text_index: that.state.text_index + 1
         });
 
-        if (that.state.index == 'Vars & Crafts'.length)
+        if (that.state.index === 'Vars & Crafts'.length)
           window.clearInterval(that.interval)
 
       }, 77);
     }, 100)
-  },
-  getInitialState() {
-    if (!window.didAnimateTitle) {
-      window.didAnimateTitle = true;
-      return {
-        text_index: 1
-      }
-    } else {
-      return {
-        text_index: 'Vars & Crafts'.length
-      }
-    }
+  }
 
-  },
   render() {
     return (
         <Header as='h1' icon textAlign='center'>
@@ -45,6 +48,6 @@ const Title = React.createClass({
         </Header>
     );
   }
-});
+}
 
 export default Title;
