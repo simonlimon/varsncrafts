@@ -6,6 +6,29 @@ function generate_sketch (p, draw_shape) {
   var tile_size;
   var tiles = [];
 
+  function GenerateGrid () {
+    tiles = [];
+    const num_x_tiles = p.ceil(p.width / tile_size) ;
+    const num_y_tiles = p.ceil(p.height / tile_size) ;
+
+    for (let i = 0; i < num_y_tiles; i++) {
+      tiles.push([]);
+      for (let j = 0; j < num_x_tiles; j++) {
+        tiles[i].push(new Tile(p, tile_size * j, tile_size * i, i + j, tile_size, draw_shape))
+      }
+    }
+  };
+
+  function RandomRotateTiles () {
+    for (var i = 0; i < tiles.length; i++) {
+      for (var j = 0; j < tiles[i].length; j++) {
+        if (p.random([true,false])) {
+          tiles[i][j].animate_rotation()
+        }
+      }
+    }
+  }
+
   p.setup = function () {
     if (p.windowWidth > 600) {
       tile_size = 70
@@ -33,7 +56,7 @@ function generate_sketch (p, draw_shape) {
   p.keyPressed = function () {
     if (p.key === " ") {
       RandomRotateTiles()
-    } else if (p.key == "S"){
+    } else if (p.key === "S"){
       p.saveCanvas('tiling', 'png');
     }
   };
@@ -46,29 +69,6 @@ function generate_sketch (p, draw_shape) {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
     GenerateGrid();
   };
-
-  var GenerateGrid = function () {
-    tiles = [];
-    const num_x_tiles = p.ceil(p.width / tile_size) ;
-    const num_y_tiles = p.ceil(p.height / tile_size) ;
-
-    for (let i = 0; i < num_y_tiles; i++) {
-      tiles.push([]);
-      for (let j = 0; j < num_x_tiles; j++) {
-        tiles[i].push(new Tile(p, tile_size * j, tile_size * i, i + j, tile_size, draw_shape))
-      }
-    }
-  };
-
-  var RandomRotateTiles = function () {
-    for (var i = 0; i < tiles.length; i++) {
-      for (var j = 0; j < tiles[i].length; j++) {
-        if (p.random([true,false])) {
-          tiles[i][j].animate_rotation()
-        }
-      }
-    }
-  }
 }
 
 export default generate_sketch;

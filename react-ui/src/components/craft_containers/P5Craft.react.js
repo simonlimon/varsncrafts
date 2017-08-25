@@ -24,8 +24,8 @@ class P5Craft extends React.PureComponent {
     if (this.craft.interval) {
       clearInterval(this.craft.interval)
     }
-    $('.incoming.year').remove()
-    $('.ui.circle').remove()
+    $('.incoming.year').remove();
+    $('.ui.circle').remove();
     this.craft.remove()
   }
 
