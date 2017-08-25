@@ -1,6 +1,5 @@
-import React from 'react';
-import p5 from "p5";
-import {Button} from 'semantic-ui-react'
+import React from 'react'
+import p5 from "p5"
 import anime from 'animejs'
 import $ from 'jquery'
 
@@ -9,7 +8,7 @@ import $ from 'jquery'
 
 class P5Craft extends React.PureComponent {
   componentDidMount() {
-    var sketch = require('../../crafts/p5/' + this.props.params.title + '/Main');
+    var sketch = require('../../crafts/p5/' + this.props.title + '/Main');
     //noinspection JSPotentiallyInvalidConstructorUsage
     this.craft = new p5(sketch.default);
     anime({
@@ -29,25 +28,9 @@ class P5Craft extends React.PureComponent {
     this.craft.remove()
   }
 
-  handleClose = () => {
-    $('.incoming.year').remove();
-    $('.ui.circle').remove();
-
-    this.props.router.push('/');
-    // anime({
-    //   targets: '.craft',
-    //   scale: 0,
-    //   easing: 'easeOutQuad',
-    //   duration: 5000,
-    // })
-  };
-
   render() {
     return (
-      <div className="craft">
-        <Button floated="left" icon={"close"} circular className={"navbar"} onClick={this.handleClose}/>
-        <div id='sketch'/>
-      </div>
+      <div id='sketch'/>
     );
   }
 }
