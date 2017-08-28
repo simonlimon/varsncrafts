@@ -1,35 +1,21 @@
 import React from 'react'
 import vis from 'vis'
+import wiki from 'wikijs'
+
+//TODO: Migrate to axios link fetching using wikipedia http API
+//TODO: Improve Graph style
+//TODO: Implement a better way of interacting with the graph to add a new node
 
 class Main extends React.Component {
+  constructor() {
+    super();
+    this.wiki = wiki();
+    this.nodes = new vis.DataSet([{id: 'New York City', label: 'New York City'}]);
+    this.edges = new vis.DataSet([]);
+  }
 
   componentDidMount() {
-    // create an array with nodes
-    var nodes = new vis.DataSet([
-      {id: 1, label: 'Node 1'},
-      {id: 2, label: 'Node 2'},
-      {id: 3, label: 'Node 3'},
-      {id: 4, label: 'Node 4'},
-      {id: 5, label: 'Node 5'}
-    ]);
-
-    // create an array with edges
-    var edges = new vis.DataSet([
-      {from: 1, to: 3},
-      {from: 1, to: 2},
-      {from: 2, to: 4},
-      {from: 2, to: 5}
-    ]);
-
-    // create a network
-    var container = document.getElementById('mynetwork');
-
-    // provide the data in the vis format
-    var data = {
-      nodes: nodes,
-      edges: edges
-    };
-    var options = {
+    const options = {
       edges:{
         arrows: 'to',
         smooth: true,
@@ -37,17 +23,31 @@ class Main extends React.Component {
       }
     };
 
-    // initialize your network!
-    var network = new vis.Network(container, data, options);
+    const container = document.getElementById('wikinetwork');
+    const network = new vis.Network(
+      container,
+      {nodes: this.nodes, edges: this.edges},
+      options
+    );
 
-    network.on("selectNode", function (params) {
-      nodes.add({id:'rr', label:"I'm new!"});
+    network.on("selectNode", (params) => {
+      this._addWikiNode(params.nodes[0])
     });
+  }
+
+  _addWikiNode(fromNodeTitle) {
+    this.wiki.page(fromNodeTitle).then(page =>
+      page.links()
+    ).then(links => {
+      const randomLink = links[Math.floor(Math.random()*links.length)];
+      this.nodes.add({id:randomLink, label:randomLink});
+      this.edges.add({from: fromNodeTitle, to: randomLink});
+    })
   }
 
   render() {
     return (
-      <div id="mynetwork" style={{width: '100%', height: '100%'}}/>
+      <div id="wikinetwork" style={{width: '100%', height: '100%'}}/>
     );
   }
 
