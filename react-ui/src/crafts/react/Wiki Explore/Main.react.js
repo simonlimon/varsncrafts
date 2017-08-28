@@ -3,7 +3,8 @@ import vis from 'vis'
 import wiki from 'wikijs'
 import { Loader } from 'semantic-ui-react'
 
-//TODO: Add option to
+//TODO Add automatic crawling
+//TODO Add option to go to wikipedia articles
 
 class Main extends React.Component {
   constructor() {

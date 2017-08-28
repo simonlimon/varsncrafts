@@ -1,0 +1,9 @@
+{
+  "title": "Labyrinth",
+  "image": "/assets/images/Truchet_labyrinth.png",
+  "description": "Truchet tiling one last time. Playing with sharp turns and dead ends lead to random labyrinths.",
+  "keywords": "Truchet tiling | p5.js | anime.js",
+  "date": "March 2017",
+  "timestamp": "2017/04/10",
+  "type": "p5"
+}

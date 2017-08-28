@@ -1,0 +1,9 @@
+{
+  "title": "Perlin Walks",
+  "image": "/assets/images/walks.png",
+  "description": "Colorful circles gain life with the aid of Perlin noise.",
+  "keywords": "Perlin noise | p5.js",
+  "date": "May 2017",
+  "timestamp": "2017/06/10",
+  "type": "p5"
+}

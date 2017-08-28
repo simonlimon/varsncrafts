@@ -1,0 +1,9 @@
+{
+  "title": "Wiki Explore",
+  "image": "/assets/images/wikipedia.png",
+  "description": "A random walk through Wikipedia. It's interesting how many unexpected connections you can discover.",
+  "keywords": "Wikipedia | Vis.js | Axios",
+  "date": "August 2017",
+  "timestamp": "2017/08/20",
+  "type": "react"
+}
