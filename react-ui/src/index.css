@@ -32,6 +32,12 @@
     left: 0.5em;
 }
 
+.info_button {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+}
+
 body {
     height: 90%;
 }
