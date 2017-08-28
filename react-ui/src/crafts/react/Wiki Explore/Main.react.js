@@ -1,16 +1,16 @@
 import React from 'react'
 import vis from 'vis'
 import wiki from 'wikijs'
+import { Loader } from 'semantic-ui-react'
 
-//TODO: Migrate to axios link fetching using wikipedia http API
-//TODO: Improve Graph style
-//TODO: Implement a better way of interacting with the graph to add a new node
+//TODO: Add option to
 
 class Main extends React.Component {
   constructor() {
     super();
+    this.state = {loading: false};
     this.wiki = wiki();
-    this.nodes = new vis.DataSet([{id: 'New York City', label: 'New York City'}]);
+    this.nodes = new vis.DataSet([{id: 'Bananas', label: 'Bananas', fixed: true}]);
     this.edges = new vis.DataSet([]);
   }
 
@@ -20,6 +20,14 @@ class Main extends React.Component {
         arrows: 'to',
         smooth: true,
         width: 1
+      },
+      nodes: {
+        color: '#FFFFFF',
+        font: {
+          face: 'Lato'
+        },
+        shadow: true,
+        shape: 'box',
       }
     };
 
@@ -30,24 +38,35 @@ class Main extends React.Component {
       options
     );
 
-    network.on("selectNode", (params) => {
-      this._addWikiNode(params.nodes[0])
+    network.on("doubleClick", (params) => {
+      if (params.nodes.length > 0) {
+        this._addWikiNode(params.nodes[0])
+      }
     });
   }
 
   _addWikiNode(fromNodeTitle) {
+    this.setState({loading: true});
     this.wiki.page(fromNodeTitle).then(page =>
       page.links()
     ).then(links => {
+      this.setState({loading: false});
       const randomLink = links[Math.floor(Math.random()*links.length)];
       this.nodes.add({id:randomLink, label:randomLink});
       this.edges.add({from: fromNodeTitle, to: randomLink});
-    })
+    }).catch(error =>
+      this.setState({loading: false})
+    )
   }
 
   render() {
     return (
-      <div id="wikinetwork" style={{width: '100%', height: '100%'}}/>
+      <div>
+        <div
+          id="wikinetwork"
+          style={{width: window.innerWidth, height: window.innerHeight}}/>
+        <Loader active={this.state.loading} style={{position: 'absolute', top:25}}/>
+      </div>
     );
   }
 
