@@ -6,7 +6,7 @@ import Title from './Title.react'
 import CraftCard from './CraftCard.react'
 
 //noinspection JSUnresolvedFunction
-const crafts = require('../crafts.json');
+const crafts = require('../crafts/crafts.json');
 
 const bouncing_card = Math.floor(Math.random() * Object.keys(crafts).length);
 

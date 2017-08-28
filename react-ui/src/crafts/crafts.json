@@ -3,7 +3,7 @@
     "title": "Wiki Explore",
     "image": "/assets/images/wikipedia.png",
     "description": "A random walk through wikipedia. It's fascinating how everything is interconnected.",
-    "keywords": "Wikipedia | React Konva | React Motion",
+    "keywords": "Wikipedia | Vis.js | Axios",
     "date": "August 2017",
     "type": "react"
   },
