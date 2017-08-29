@@ -25,8 +25,7 @@ class Home extends React.PureComponent {
                  date={craft.date}
                  timestamp={craft.timestamp}
                  bouncing={this.bouncingCardIndex === i}
-                 type={craft.type}
-      />
+                 type={craft.type}/>
     );
   }
 

@@ -7,14 +7,21 @@ import ReactCraft from './craft_containers/ReactCraft.react'
 //TODO Preserve home scroll
 
 class CraftRoot extends React.PureComponent {
-
   componentWillMount () {
-    switch (this.props.params.type) {
+    const craftType = this.props.params.type;
+    const craftTitle = this.props.params.title;
+
+    this.craftInfo =
+      require('../crafts/' + craftType + '/' + craftTitle + '/_info.json');
+
+    console.log(this.craftInfo);
+
+    switch (craftType) {
       case 'p5':
-        this.craft = <P5Craft title={this.props.params.title}/>;
+        this.craft = <P5Craft title={craftTitle}/>;
         return;
       case 'react':
-        this.craft = <ReactCraft title={this.props.params.title}/>;
+        this.craft = <ReactCraft title={craftTitle}/>;
         return;
       default:
         return;
@@ -51,15 +58,15 @@ class CraftRoot extends React.PureComponent {
           circular
           className="close_button"
           onClick={this.handleClose}/>
-        <Modal trigger={modalButton} dimmer="inverted">
-          <Modal.Header>{this.props.params.title}</Modal.Header>
-          <Modal.Content image>
-            <Modal.Description>
-              <p>We've found the following gravatar image associated with your e-mail address.</p>
-              <p>Is it okay to use this photo?</p>
-            </Modal.Description>
-          </Modal.Content>
-        </Modal>
+        {this.craftInfo.instructions &&
+          <Modal trigger={modalButton} dimmer="inverted">
+            <Modal.Header>{this.props.params.title}</Modal.Header>
+            <Modal.Content>
+              <Modal.Description>
+                {this.craftInfo.instructions}
+              </Modal.Description>
+            </Modal.Content>
+          </Modal>}
       </div>
     );
   }
