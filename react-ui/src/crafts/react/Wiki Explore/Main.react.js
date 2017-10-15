@@ -44,6 +44,17 @@ class Main extends React.Component {
         this._addWikiNode(params.nodes[0])
       }
     });
+
+    this.interval = setInterval(() => {
+      let nodes = this.nodes.get()
+      let rand = nodes[Math.floor(Math.random()*nodes.length)];
+      this._addWikiNode(rand.id)
+      console.log(rand.id)
+    }, 4000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
   }
 
   _addWikiNode(fromNodeTitle) {
