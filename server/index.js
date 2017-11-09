@@ -1,4 +1,3 @@
-require('newrelic');
 const express = require('express');
 const path = require('path');
 
@@ -32,7 +31,7 @@ app.get('/api/sentry', function (req, res) {
 
 // Cuisine colors data
 app.get('/api/cuisine_colors/:cuisine', function (req, res) {
-  cuisine_colors(res)
+  cuisine_colors(res, req.params.cuisine)
 });
 
 // All remaining requests return the React app, so it can handle routing.
