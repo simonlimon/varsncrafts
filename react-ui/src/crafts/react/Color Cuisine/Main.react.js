@@ -1,6 +1,5 @@
 import React from 'react'
 import GoogleImages from 'google-images'
-import { Loader } from 'semantic-ui-react'
 import Keys from './_keys.json'
 
 //TODO Add automatic crawling
@@ -10,22 +9,22 @@ class Main extends React.Component {
   constructor() {
     super();
     this.imageSearch = new GoogleImages(Keys.search, Keys.api);
+    this.state = { 'images': [] }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.imageSearch.search('Nutella').then(images => {
-        console.log(images)
+      console.log(images)
+      this.setState({ images })
     });
-  }
-
-  componentWillUnmount() {
-
   }
 
   render() {
     return (
       <div>
-        
+        {this.state.images.map(image => 
+          <div key={image.url}> {image.url} </div>
+        )}
       </div>
     );
   }
