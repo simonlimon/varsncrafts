@@ -6,20 +6,34 @@ const axios = require('axios');
 const storage = require('node-persist');
 
 function get(res, cuisine_term) {
-  get_cuisine_colors(cuisine_term, colors => {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(colors);
+  res.setHeader('Content-Type', 'application/json');
+  storage.init({ dir: './server/api/tmp/storage' }).then(() => {
+    storage.getItem(cuisine_term).then(colors => {
+
+      if (colors === undefined) {
+        // console.log('Item not cached')      
+        fetch_cuisine_colors(cuisine_term, colors => {
+          // console.log('Fetched and cached')              
+          storage.setItem(cuisine_term, colors);
+          res.send(colors);
+        });
+      } else {
+        // console.log('Item cached')
+        res.send(colors);
+      }
+
+    });
   });
 }
 
-function get_cuisine_colors(cuisine_term, callback) {
-  imageSearch = new GoogleImages(Keys.search, Keys.api);  
-  imageSearch.search(cuisine_term).then(images => {
+function fetch_cuisine_colors(cuisine_term, callback) {
+  imageSearch = new GoogleImages(Keys.search, Keys.api);
+  imageSearch.search(cuisine_term + ' cuisine').then(images => {
     let image_urls = images.map(image => image.url)
     let colors = {}
     let count = 0
     for (const i in image_urls) {
-      get_colors(image_urls[i], result => {
+      fetch_image_colors(image_urls[i], result => {
         colors[image_urls[i]] = result;
         count++;
         if (count == image_urls.length) {
@@ -30,7 +44,7 @@ function get_cuisine_colors(cuisine_term, callback) {
   });
 }
 
-function get_colors(image_url, callback) {
+function fetch_image_colors(image_url, callback) {
   const vision = new Vision({
     keyFilename: './server/api/_keys/varsncrafts-cuisine-8877256aaf7e.json'
   });

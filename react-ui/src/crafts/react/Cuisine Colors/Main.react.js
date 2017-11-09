@@ -4,25 +4,19 @@ import Axios from 'axios'
 //TODO Add option to go to wikipedia articles
 
 class Main extends React.Component {
-  constructor() {
-    super();
-    this.state = { 'images': [] }
-  }
-
   componentWillMount() {
     const term = 'italian'
-    const that = this
-    Axios.get('/api/cuisine_colors/' + term).then(function (result) {
-      console.log(result)
-      // that.setState(result.data)
+    Axios.get('/api/cuisine_colors/' + term).then(result => {
+      console.log(result.data)
+      this.setState(result.data)
     });
   }
 
   render() {
     return (
       <div>
-        {this.state.images.map(image => 
-          <div key={image.url}> {image.url} </div>
+        {this.state && Object.keys(this.state).map(item => 
+          <div key={item}> {item} </div>
         )}
       </div>
     );
