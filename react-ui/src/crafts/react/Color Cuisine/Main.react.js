@@ -1,21 +1,20 @@
 import React from 'react'
-import GoogleImages from 'google-images'
-import Keys from './_keys.json'
-
+import Axios from 'axios'
 //TODO Add automatic crawling
 //TODO Add option to go to wikipedia articles
 
 class Main extends React.Component {
   constructor() {
     super();
-    this.imageSearch = new GoogleImages(Keys.search, Keys.api);
     this.state = { 'images': [] }
   }
 
   componentWillMount() {
-    this.imageSearch.search('Nutella').then(images => {
-      console.log(images)
-      this.setState({ images })
+    const term = 'italian'
+    const that = this
+    Axios.get('/api/cuisine_colors/' + term).then(function (result) {
+      console.log(result)
+      that.setState(result.data)
     });
   }
 
