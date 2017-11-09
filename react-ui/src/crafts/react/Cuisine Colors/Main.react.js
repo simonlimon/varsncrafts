@@ -14,7 +14,7 @@ class Main extends React.Component {
     const that = this
     Axios.get('/api/cuisine_colors/' + term).then(function (result) {
       console.log(result)
-      that.setState(result.data)
+      // that.setState(result.data)
     });
   }
 

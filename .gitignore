@@ -20,3 +20,4 @@ yarn-error.log*
 .idea/
 config.js
 server/api/tmp
+server/api/_keys/
