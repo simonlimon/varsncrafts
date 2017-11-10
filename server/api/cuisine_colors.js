@@ -35,8 +35,7 @@ function fetch_cuisine_colors(cuisine_term, callback) {
     for (const i in image_urls) {
       fetch_image_colors(image_urls[i], result => {
         if (result) {
-          colors[image_urls[i]] = result;
-          
+          colors[image_urls[i]] = result; 
         }
         count++;
         if (count == image_urls.length) {
