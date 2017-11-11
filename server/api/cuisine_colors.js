@@ -26,7 +26,7 @@ function get(res, cuisine_term) {
 
 function fetch_cuisine_colors(cuisine_term, callback) {
   imageSearch = new GoogleImages(Keys.search, Keys.api);
-  imageSearch.search(cuisine_term + ' cuisine').then(images => {
+  imageSearch.search(cuisine_term.toLowerCase() + ' cuisine').then(images => {
     let image_urls = images.map(image => image.url);
     let colors = {};
     let count = 0;
