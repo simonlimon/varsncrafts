@@ -1,7 +1,8 @@
 {
   "title": "Triangles",
   "image": "/assets/images/Truchet_base_tiling.svg",
-  "description": "More experimentation with patterns and rotating tiles, this time using sharper objects.",
+  "description":
+    "More experimentation with patterns and rotating tiles, this time using sharper objects.",
   "keywords": "Truchet tiling | p5.js | anime.js",
   "date": "March 2017",
   "timestamp": "2017/04/15",

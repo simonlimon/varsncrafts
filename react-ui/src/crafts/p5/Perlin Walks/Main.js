@@ -1,15 +1,14 @@
-import Walker from './Walker'
+import Walker from './Walker';
 
 // TODO UI for customizable parameters
 // TODO Collisions
 
 function sketch(p) {
-
   var walkers = [];
 
-  p.setup = function () {
+  p.setup = function() {
     var canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-    canvas.parent("sketch");
+    canvas.parent('sketch');
 
     p.background(0);
 
@@ -18,7 +17,7 @@ function sketch(p) {
     }
   };
 
-  p.draw = function () {
+  p.draw = function() {
     p.background(0, 10);
 
     for (var i = 0; i < walkers.length; i++) {
@@ -26,7 +25,6 @@ function sketch(p) {
       walkers[i].update();
     }
   };
-
 }
 
-export default sketch
+export default sketch;

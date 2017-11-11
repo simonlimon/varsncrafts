@@ -1,7 +1,8 @@
 {
   "title": "Incoming",
   "image": "/assets/images/incoming.jpg",
-  "description": "NASA Asteroid data + Recent earth imagery + Asteroids exploding into multicolored particles.",
+  "description":
+    "NASA Asteroid data + Recent earth imagery + Asteroids exploding into multicolored particles.",
   "keywords": "NASA APIs | Axios | Node",
   "date": "April 2017",
   "timestamp": "2017/05/10",

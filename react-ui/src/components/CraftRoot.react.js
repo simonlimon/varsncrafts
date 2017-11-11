@@ -1,40 +1,43 @@
 import React from 'react';
-import anime from "animejs";
-import {Button, Modal} from 'semantic-ui-react'
-import P5Craft from './craft_containers/P5Craft.react'
-import ReactCraft from './craft_containers/ReactCraft.react'
+import anime from 'animejs';
+import { Button, Modal } from 'semantic-ui-react';
+import P5Craft from './craft_containers/P5Craft.react';
+import ReactCraft from './craft_containers/ReactCraft.react';
 
 //TODO Preserve home scroll
 
 class CraftRoot extends React.PureComponent {
-  componentWillMount () {
+  componentWillMount() {
     const craftType = this.props.params.type;
     const craftTitle = this.props.params.title;
 
-    this.craftInfo =
-      require('../crafts/' + craftType + '/' + craftTitle + '/_info.json');
+    this.craftInfo = require('../crafts/' +
+      craftType +
+      '/' +
+      craftTitle +
+      '/_info.json');
 
     console.log(this.craftInfo);
 
     switch (craftType) {
       case 'p5':
-        this.craft = <P5Craft title={craftTitle}/>;
+        this.craft = <P5Craft title={craftTitle} />;
         return;
       case 'react':
-        this.craft = <ReactCraft title={craftTitle}/>;
+        this.craft = <ReactCraft title={craftTitle} />;
         return;
       default:
         return;
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     anime({
       targets: '.craft',
       scale: [0.9, 1],
       easing: 'easeOutQuad',
-      duration: 500,
-    })
+      duration: 500
+    });
   }
 
   handleClose = () => {
@@ -43,11 +46,7 @@ class CraftRoot extends React.PureComponent {
 
   render() {
     const modalButton = (
-      <Button
-        floated="right"
-        icon="info"
-        circular
-        className="info_button"/>
+      <Button floated="right" icon="info" circular className="info_button" />
     );
     return (
       <div className="craft">
@@ -57,8 +56,9 @@ class CraftRoot extends React.PureComponent {
           icon="close"
           circular
           className="close_button"
-          onClick={this.handleClose}/>
-        {this.craftInfo.instructions &&
+          onClick={this.handleClose}
+        />
+        {this.craftInfo.instructions && (
           <Modal trigger={modalButton} dimmer="inverted">
             <Modal.Header>{this.props.params.title}</Modal.Header>
             <Modal.Content>
@@ -66,7 +66,8 @@ class CraftRoot extends React.PureComponent {
                 {this.craftInfo.instructions}
               </Modal.Description>
             </Modal.Content>
-          </Modal>}
+          </Modal>
+        )}
       </div>
     );
   }

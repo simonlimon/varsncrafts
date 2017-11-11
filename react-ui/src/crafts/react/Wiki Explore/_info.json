@@ -1,8 +1,10 @@
 {
   "title": "Wiki Explore",
   "image": "/assets/images/wikipedia.png",
-  "description": "A random walk through Wikipedia. It's fascinating how many unexpected connections can discovered through random steps.",
-  "instructions": "Each node in this graph represents a Wikipedia page. Double click a node to follow a random link in that page and add it to the graph.",
+  "description":
+    "A random walk through Wikipedia. It's fascinating how many unexpected connections can discovered through random steps.",
+  "instructions":
+    "Each node in this graph represents a Wikipedia page. Double click a node to follow a random link in that page and add it to the graph.",
   "keywords": "Wikipedia | Vis.js | Axios",
   "date": "August 2017",
   "timestamp": "2017/08/20",

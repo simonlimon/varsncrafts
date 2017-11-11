@@ -1,7 +1,8 @@
 {
   "title": "Little Islands",
   "image": "/assets/images/Truchet_tiling.svg",
-  "description": "Small changes often unexpectedly affect the ways we are connected. This is a craft involving patterns and rotating tiles.",
+  "description":
+    "Small changes often unexpectedly affect the ways we are connected. This is a craft involving patterns and rotating tiles.",
   "keywords": "Truchet tiling | p5.js | anime.js",
   "date": "March 2017",
   "timestamp": "2017/04/5",

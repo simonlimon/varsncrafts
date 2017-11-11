@@ -9,11 +9,10 @@ function get(res, cuisine_term) {
   res.setHeader('Content-Type', 'application/json');
   storage.init({ dir: './server/api/tmp/storage' }).then(() => {
     storage.getItem(cuisine_term).then(colors => {
-
       if (colors === undefined) {
-        // console.log('Item not cached')      
+        // console.log('Item not cached')
         fetch_cuisine_colors(cuisine_term, colors => {
-          // console.log('Fetched and cached')              
+          // console.log('Fetched and cached')
           storage.setItem(cuisine_term, colors);
           res.send(colors);
         });
@@ -21,7 +20,6 @@ function get(res, cuisine_term) {
         // console.log('Item cached')
         res.send(colors);
       }
-
     });
   });
 }
@@ -29,19 +27,19 @@ function get(res, cuisine_term) {
 function fetch_cuisine_colors(cuisine_term, callback) {
   imageSearch = new GoogleImages(Keys.search, Keys.api);
   imageSearch.search(cuisine_term + ' cuisine').then(images => {
-    let image_urls = images.map(image => image.url)
-    let colors = {}
-    let count = 0
+    let image_urls = images.map(image => image.url);
+    let colors = {};
+    let count = 0;
     for (const i in image_urls) {
       fetch_image_colors(image_urls[i], result => {
         if (result) {
-          colors[image_urls[i]] = result; 
+          colors[image_urls[i]] = result;
         }
         count++;
         if (count == image_urls.length) {
           callback(colors);
         }
-      })
+      });
     }
   });
 }
@@ -56,16 +54,17 @@ function fetch_image_colors(image_url, callback) {
     }
   };
 
-  vision.imageProperties(request)
-    .then((results) => {
+  vision
+    .imageProperties(request)
+    .then(results => {
       const properties = results[0].imagePropertiesAnnotation;
       const colors = properties.dominantColors.colors;
       callback(colors);
     })
-    .catch((err) => {
+    .catch(err => {
       console.error('ERROR:', err);
-      callback();      
+      callback();
     });
 }
 
-module.exports = get
+module.exports = get;
