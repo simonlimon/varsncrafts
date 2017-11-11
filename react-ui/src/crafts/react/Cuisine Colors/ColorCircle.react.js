@@ -12,6 +12,8 @@ class ColorCircle extends React.Component {
   };
 
   render() {
+    const imageLeft = window.innerWidth / 2 - this.props.radius * 3 / 2;
+    const imageTop = window.innerHeight / 2 - this.props.radius * 3 / 2;
     return (
       <div>
         <a
@@ -31,17 +33,24 @@ class ColorCircle extends React.Component {
         />
         {this.state &&
           this.state.showImage && (
-            <div>
+            <div
+              style={{
+                borderRadius: '50%',
+                position: 'absolute',
+                left: imageLeft,
+                top: imageTop,
+                overflow: 'hidden',
+                width: this.props.radius * 3,
+                height: this.props.radius * 3
+              }}
+            >
               <img
                 src={this.props.href}
                 style={{
-                  maxWidth: this.props.radius * 3,
-                  maxHeight: this.props.radius * 3,
-                  overflow: 'hidden',
-                  borderRadius: '50%',
+                  height: '100%',
+                  width: 'auto',
                   position: 'absolute',
-                  left: window.innerWidth / 2 - this.props.radius * 3 / 2,
-                  top: window.innerHeight / 2 - this.props.radius * 3 / 2
+                  left: 0
                 }}
               />
             </div>
