@@ -3,11 +3,22 @@ import Axios from 'axios';
 import Chroma from 'chroma-js';
 import ColorCircle from './ColorCircle.react';
 import ColorWheel from './ColorWheel.react';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
-const term = 'italian';
+const CUISINES = [
+  { value: 'Italian', label: 'Italian' },
+  { value: 'Moroccan', label: 'Moroccan' },
+  { value: 'Chinese', label: 'Chinese' }
+];
 
 class Main extends React.Component {
-  // Helpers
+  constructor() {
+    super();
+    this.setState({ selectedCuisine: null });
+  }
+
+  // ----- Helpers  -----
 
   updateDimensions = () => {
     this.setState(prevState => {
@@ -25,11 +36,16 @@ class Main extends React.Component {
     });
   }
 
-  // Component life cycle
+  onSelectCuisine = cuisine => {
+    console.log(cuisine.value);
+    this.setState({
+      selectedCuisine: cuisine.value
+    });
+    this.fetchCuisineColors(cuisine.value);
+  };
 
-  componentWillMount() {
-    this.updateDimensions();
-    Axios.get('/api/cuisine_colors/' + term).then(result => {
+  fetchCuisineColors(cuisine) {
+    Axios.get('/api/cuisine_colors/' + cuisine).then(result => {
       // console.log(result.data)
 
       // move colors into array
@@ -56,6 +72,12 @@ class Main extends React.Component {
     });
   }
 
+  // ----- Component life cycle -----
+
+  componentWillMount() {
+    this.updateDimensions();
+  }
+
   componentDidMount() {
     window.addEventListener('resize', this.updateDimensions);
   }
@@ -65,14 +87,12 @@ class Main extends React.Component {
   }
 
   render() {
-    let index = 0;
     return (
       <div
         style={{
           textAlign: 'center',
           verticalAlign: 'middle',
-          lineHeight: this.state.height.toString() + 'px',
-          fontSize: 30
+          fontSize: '1.5em'
         }}
       >
         <ColorWheel
@@ -82,7 +102,24 @@ class Main extends React.Component {
           radius={this.state.height / 4}
           subcircle_radius={this.state.height / 10}
         />
-        {term.charAt(0).toUpperCase() + term.slice(1)}
+
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: this.state.height / 4
+          }}
+        >
+          <Select
+            clearable={false}
+            name="form-field-name"
+            value={this.state.selectedCuisine}
+            options={CUISINES}
+            onChange={this.onSelectCuisine}
+          />
+        </div>
       </div>
     );
   }
