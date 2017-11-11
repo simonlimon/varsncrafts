@@ -95,14 +95,6 @@ class Main extends React.Component {
           fontSize: '1.5em'
         }}
       >
-        <ColorWheel
-          colors={this.state.colors}
-          center_x={this.state.width / 2}
-          center_y={this.state.height / 2}
-          radius={this.state.height / 4}
-          subcircle_radius={this.state.height / 10}
-        />
-
         <div
           style={{
             position: 'absolute',
@@ -120,6 +112,13 @@ class Main extends React.Component {
             onChange={this.onSelectCuisine}
           />
         </div>
+        <ColorWheel
+          colors={this.state.colors}
+          center_x={this.state.width / 2}
+          center_y={this.state.height / 2}
+          radius={this.state.height / 4}
+          subcircle_radius={this.state.height / 10}
+        />
       </div>
     );
   }
