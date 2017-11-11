@@ -7,6 +7,7 @@ const storage = require('node-persist');
 
 function get(res, cuisine_term) {
   res.setHeader('Content-Type', 'application/json');
+  cuisine_term = cuisine_term.toLowerCase();
   storage.init({ dir: './server/api/tmp/storage' }).then(() => {
     storage.getItem(cuisine_term).then(colors => {
       if (colors === undefined) {
@@ -26,7 +27,7 @@ function get(res, cuisine_term) {
 
 function fetch_cuisine_colors(cuisine_term, callback) {
   imageSearch = new GoogleImages(Keys.search, Keys.api);
-  imageSearch.search(cuisine_term.toLowerCase() + ' cuisine').then(images => {
+  imageSearch.search(cuisine_term + ' cuisine').then(images => {
     let image_urls = images.map(image => image.url);
     let colors = {};
     let count = 0;
