@@ -13,11 +13,6 @@ const CUISINES = [
 ];
 
 class Main extends React.Component {
-  constructor() {
-    super();
-    this.setState({ selectedCuisine: null });
-  }
-
   // ----- Helpers  -----
 
   updateDimensions = () => {
@@ -88,29 +83,35 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div
-        style={{
-          textAlign: 'center',
-          verticalAlign: 'middle',
-          fontSize: '1.5em'
-        }}
-      >
+      <div>
         <div
           style={{
             position: 'absolute',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: this.state.height / 4
+            width: '7em',
+            fontSize: '2em',
+            textAlign: 'center'
           }}
         >
-          <Select
-            clearable={false}
-            name="form-field-name"
-            value={this.state.selectedCuisine}
-            options={CUISINES}
-            onChange={this.onSelectCuisine}
-          />
+          The colors of
+          <div
+            style={{
+              textAlign: 'none',
+              fontSize: '0.75em',
+              margin: '1em'
+            }}
+          >
+            <Select
+              clearable={false}
+              name="form-field-name"
+              value={this.state.selectedCuisine}
+              options={CUISINES}
+              onChange={this.onSelectCuisine}
+            />
+          </div>
+          cuisine
         </div>
         <ColorWheel
           colors={this.state.colors}

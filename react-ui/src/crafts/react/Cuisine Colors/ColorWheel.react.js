@@ -17,7 +17,9 @@ class ColorWheel extends React.Component {
         {this.props.colors &&
           this.sortColors(this.props.colors).map(color => {
             //calculate position
-            const angle = index / (this.props.colors.length / 2) * Math.PI;
+            const angle =
+              index / (this.props.colors.length / 2) * Math.PI * 0.8 +
+              Math.PI * 0.225;
             const x = this.props.center_x - this.props.subcircle_radius / 2;
             const y = this.props.center_y - this.props.subcircle_radius / 2;
             index++;
