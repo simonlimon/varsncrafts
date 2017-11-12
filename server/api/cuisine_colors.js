@@ -1,11 +1,18 @@
 const GoogleImages = require('google-images');
-const Keys = require('./_keys/search.json');
 const Vision = require('@google-cloud/vision');
 
 const axios = require('axios');
 const storage = require('node-persist');
 
+const vision = new Vision({
+  credentials: {
+    private_key: process.env.GCLOUD_PRIV_KEY,
+    client_email: process.env.GCLOUD_CLIENT_EMAIL
+  }
+});
+
 function get(res, cuisine_term) {
+  console.log(process.env.GCLOUD_PRIV_KEY);
   res.setHeader('Content-Type', 'application/json');
   cuisine_term = cuisine_term.toLowerCase();
   storage.init({ dir: './server/api/tmp/storage' }).then(() => {
@@ -26,7 +33,10 @@ function get(res, cuisine_term) {
 }
 
 function fetch_cuisine_colors(cuisine_term, callback) {
-  imageSearch = new GoogleImages(Keys.search, Keys.api);
+  imageSearch = new GoogleImages(
+    process.env.GOOGLE_SEARCH_KEY,
+    process.env.GOOGLE_API_KEY
+  );
   imageSearch.search(cuisine_term + ' cuisine').then(images => {
     let image_urls = images.map(image => image.url);
     let colors = {};
@@ -46,9 +56,6 @@ function fetch_cuisine_colors(cuisine_term, callback) {
 }
 
 function fetch_image_colors(image_url, callback) {
-  const vision = new Vision({
-    keyFilename: './server/api/_keys/varsncrafts-cuisine-8877256aaf7e.json'
-  });
   const request = {
     source: {
       imageUri: image_url
