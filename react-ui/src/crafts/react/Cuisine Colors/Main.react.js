@@ -4,13 +4,12 @@ import Chroma from 'chroma-js';
 import ColorCircle from './ColorCircle.react';
 import ColorWheel from './ColorWheel.react';
 import Select from 'react-select';
+
+// Styles for select button:
 import 'react-select/dist/react-select.css';
 
-const CUISINES = [
-  { value: 'Italian', label: 'Italian' },
-  { value: 'Moroccan', label: 'Moroccan' },
-  { value: 'Chinese', label: 'Chinese' }
-];
+// List of cuisines
+import CUISINES from './cuisines';
 
 class Main extends React.Component {
   // ----- Helpers  -----
@@ -32,7 +31,6 @@ class Main extends React.Component {
   }
 
   onSelectCuisine = cuisine => {
-    console.log(cuisine.value);
     this.setState({
       selectedCuisine: cuisine.value
     });
@@ -71,6 +69,9 @@ class Main extends React.Component {
 
   componentWillMount() {
     this.updateDimensions();
+    this.selectOptions = CUISINES.map(c => {
+      return { value: c, label: c };
+    });
   }
 
   componentDidMount() {
@@ -107,7 +108,7 @@ class Main extends React.Component {
               clearable={false}
               name="form-field-name"
               value={this.state.selectedCuisine}
-              options={CUISINES}
+              options={this.selectOptions}
               onChange={this.onSelectCuisine}
             />
           </div>
