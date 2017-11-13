@@ -25,6 +25,10 @@ class ColorWheel extends React.Component {
             index++;
             return (
               <ColorCircle
+                anim={{
+                  offset: (this.props.colors.length - index) * 25,
+                  duration: 400
+                }}
                 key={index}
                 href={color[0]}
                 color={color[1]}

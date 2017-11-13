@@ -118,7 +118,7 @@ class Main extends React.Component {
             center_x={this.state.width / 2}
             center_y={this.state.height / 2}
             radius={this.state.height / 4}
-            subcircle_radius={this.state.height / 10}
+            subcircle_radius={this.state.height / 12}
           />
         )}
         <Loader

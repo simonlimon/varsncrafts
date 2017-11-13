@@ -1,4 +1,5 @@
 import React from 'react';
+import Anime from 'animejs';
 //TODO Add automatic crawling
 //TODO Add option to go to wikipedia articles
 
@@ -11,20 +12,36 @@ class ColorCircle extends React.Component {
     this.setState({ showImage: false });
   };
 
+  componentDidMount() {
+    const offset = this.props.anim.offset;
+    const duration = this.props.anim.duration;
+    const radius = this.props.radius;
+    const targets = '#colorcircle' + offset;
+    Anime({
+      targets,
+      width: radius,
+      height: radius,
+      offset,
+      duration,
+      easing: 'easeInQuad'
+    });
+  }
+
   render() {
     const imageLeft = window.innerWidth / 2 - this.props.radius * 3 / 2;
     const imageTop = window.innerHeight / 2 - this.props.radius * 3 / 2;
     return (
       <div>
         <a
+          id={'colorcircle' + this.props.anim.offset}
           onMouseEnter={this.showImage}
           onMouseLeave={this.hideImage}
           href={this.props.href}
           style={{
             backgroundColor: this.props.color.css(),
             display: 'block',
-            width: this.props.radius,
-            height: this.props.radius,
+            width: 0,
+            height: 0,
             borderRadius: '50%',
             position: 'absolute',
             left: this.props.x,
