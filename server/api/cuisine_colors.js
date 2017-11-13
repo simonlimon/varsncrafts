@@ -12,7 +12,6 @@ const vision = new Vision({
 });
 
 function get(res, cuisine_term) {
-  console.log(process.env.GCLOUD_PRIV_KEY);
   res.setHeader('Content-Type', 'application/json');
   cuisine_term = cuisine_term.toLowerCase();
   storage.init({ dir: './server/api/tmp/storage' }).then(() => {
