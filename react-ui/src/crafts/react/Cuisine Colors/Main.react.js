@@ -4,6 +4,7 @@ import Chroma from 'chroma-js';
 import ColorCircle from './ColorCircle.react';
 import ColorWheel from './ColorWheel.react';
 import Select from 'react-select';
+import { Loader } from 'semantic-ui-react';
 
 // Styles for select button:
 import 'react-select/dist/react-select.css';
@@ -15,12 +16,9 @@ class Main extends React.Component {
   // ----- Helpers  -----
 
   updateDimensions = () => {
-    this.setState(prevState => {
-      return {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        colors: prevState.colors
-      };
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerHeight
     });
   };
 
@@ -32,7 +30,8 @@ class Main extends React.Component {
 
   onSelectCuisine = cuisine => {
     this.setState({
-      selectedCuisine: cuisine.value
+      selectedCuisine: cuisine.value,
+      loading: true
     });
     this.fetchCuisineColors(cuisine.value);
   };
@@ -60,8 +59,7 @@ class Main extends React.Component {
 
       //sort
       colors = this.sortColors(colors);
-      this.setState({ colors });
-      this.updateDimensions();
+      this.setState({ colors, loading: false });
     });
   }
 
@@ -114,12 +112,18 @@ class Main extends React.Component {
           </div>
           cuisine
         </div>
-        <ColorWheel
-          colors={this.state.colors}
-          center_x={this.state.width / 2}
-          center_y={this.state.height / 2}
-          radius={this.state.height / 4}
-          subcircle_radius={this.state.height / 10}
+        {!this.state.loading && (
+          <ColorWheel
+            colors={this.state.colors}
+            center_x={this.state.width / 2}
+            center_y={this.state.height / 2}
+            radius={this.state.height / 4}
+            subcircle_radius={this.state.height / 10}
+          />
+        )}
+        <Loader
+          active={this.state.loading}
+          style={{ position: 'absolute', top: 25 }}
         />
       </div>
     );
