@@ -7,9 +7,9 @@ import Cell from './Cell.react';
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    let aliveMatrix = []
-    const cols = window.innerWidth / 20
-    const rows = window.innerHeight / 20
+    let aliveMatrix = [];
+    const cols = window.innerWidth / 20;
+    const rows = window.innerHeight / 20;
     for (let i = 0; i < cols; i++) { // best way to declare 50
       aliveMatrix.push([]);
       for (let j = 0; j < rows; j++) {
@@ -40,12 +40,12 @@ class Main extends React.Component {
   }
 
   handleKey(e) {
-    e.preventDefault();
-    e.stopPropagation();
+    console.log("bla");
+    let neighbors = 0;
     return this.setState(prevState => ({
       aliveMatrix: prevState.aliveMatrix.map((row, i) => {
         return row.map((isAlive, j) => {
-          let neighbors = this.countNeighbors(i,j);
+          neighbors = this.countNeighbors(i,j);
           if (isAlive && (neighbors < 2 || neighbors > 3)) {
             return false;
           } else if (!isAlive && neighbors === 3) {
@@ -60,14 +60,42 @@ class Main extends React.Component {
   render() {
     return (
       <div
-        onKeyDown={(e) => e.keyCode === 32 && this.handleKey(e)}
-        tabIndex = '0'
+        onKeyDown={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          return e.keyCode === 32 && this.handleKey(e)}}
+        tabIndex='0'
       >
-        <table>
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            width: window.innerWidth,
+            height: window.innerHeight / 10,
+            backgroundColor: "#D3D3D3"}}
+        >
+        <button
+          style={{
+            position: 'absolute',
+            left: 50,
+            top: 20,
+            width: 40,
+            height: 40}}
+          onMouseDown={() => this.handleKey()}>
+          <img
+            src={require('./step.jpg')}
+            style={{
+              height: '100%',
+              width: 'auto',
+              //position: 'absolute',
+              //left: 0
+            }}
+          />
+        </button>
+        </div>
         {this.state.aliveMatrix.map((row, i) =>
-          <tr>
-          {this.state.aliveMatrix[i].map((isAlive, j) =>
-            <td>
+          this.state.aliveMatrix[i].map((isAlive, j) =>
             <Cell
               handleClick={() => {
                 return this.setState(prevState => {
@@ -78,11 +106,8 @@ class Main extends React.Component {
               alive={this.state.aliveMatrix[i][j]}
               row={i}
               col={j}/>
-              </td>
-          )}
-          </tr>
+          )
         )}
-        </table>
       </div>
     )
   }

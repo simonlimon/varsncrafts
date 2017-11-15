@@ -10,7 +10,7 @@ class Cell extends React.Component {
         style={{
           position: 'absolute',
           left: this.props.size * this.props.row,
-          top: this.props.size * this.props.col,
+          top: this.props.size * this.props.col + window.innerHeight / 10,
           width: this.props.size,
           height: this.props.size,
           backgroundColor: this.props.alive && "#000000"}} />
