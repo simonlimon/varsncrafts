@@ -40,7 +40,6 @@ class Main extends React.Component {
   }
 
   handleKey(e) {
-    console.log("bla");
     let neighbors = 0;
     return this.setState(prevState => ({
       aliveMatrix: prevState.aliveMatrix.map((row, i) => {
@@ -82,14 +81,16 @@ class Main extends React.Component {
             top: 20,
             width: 40,
             height: 40}}
-          onMouseDown={() => this.handleKey()}>
+          onMouseDown={() => {
+            let bla = setInterval(this.handleKey(), 100);
+            console.log(bla);
+          }}
+        >
           <img
             src={require('./step.jpg')}
             style={{
               height: '100%',
               width: 'auto',
-              //position: 'absolute',
-              //left: 0
             }}
           />
         </button>
