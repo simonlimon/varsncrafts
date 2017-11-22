@@ -1,6 +1,8 @@
 import React from 'react';
 import Cell from './Cell.react';
-// TODO deal with cells slightly off screen (change cell dimentions?)
+import { Button, Modal } from 'semantic-ui-react';
+
+// TODO better resize (don't clear everything)
 // TODO implement bar at top with buttons: one step, one play
 
 class Main extends React.Component {
@@ -9,7 +11,8 @@ class Main extends React.Component {
     this.state = {
       cols: 0,
       rows: 0,
-      aliveMatrix: []
+      aliveMatrix: [],
+      isRunning: false
     };
   }
 
@@ -88,36 +91,79 @@ class Main extends React.Component {
             height: window.innerHeight / 10,
             backgroundColor: "#D3D3D3"}}
         >
-        <button
-          style={{
-            position: 'absolute',
-            left: 50,
-            top: 20,
-            width: 40,
-            height: 40}}
-          onMouseDown={() => {
-            if (!this.isRunning) {
-              this.isRunning = setInterval(function(e) {e.evolve(); }, 150, this);
+        <Button
+        style={{
+          position: 'absolute',
+          left: 100,
+          top: 20,
+        }}
+          size='large'
+          icon={this.state.isRunning && "stop" || "play"}
+          className="play_button"
+          onClick={() => {
+            if (!this.state.isRunning) {
+              this.setState({isRunning: setInterval(function(e) {e.evolve(); }, 200, this)});
             } else {
-              clearInterval(this.isRunning);
-              this.isRunning = null;
+              clearInterval(this.state.isRunning);
+              this.setState({isRunning: null});
             }
           }}
-        >
-          <img
-            src={require('./step.jpg')}
-            style={{
-              height: '100%',
-              width: 'auto',
-            }}
-          />
-        </button>
+        />
+        <Button
+        style={{
+          position: 'absolute',
+          left: 150,
+          top: 20,
+        }}
+          size='large'
+          icon='step forward'
+          className="step_button"
+          onClick={() => {!this.state.isRunning && this.evolve();}}
+        />
+        <Button
+        style={{
+          position: 'absolute',
+          left: 200,
+          top: 20,
+        }}
+          size='large'
+          icon='erase'
+          className="clear_button"
+          onClick={() => {
+            !this.state.isRunning && this.setState(prevState => ({
+              aliveMatrix: prevState.aliveMatrix.map((row, i) => {
+                return row.map((isAlive, j) => {
+                  return false;
+                })
+              })
+            }));
+          }}
+        />
+        <Button
+        style={{
+          position: 'absolute',
+          left: 250,
+          top: 20,
+        }}
+          size='large'
+          icon='random'
+          className="random_button"
+          onClick={() => {
+            !this.state.isRunning && this.setState(prevState => ({
+              aliveMatrix: prevState.aliveMatrix.map((row, i) => {
+                return row.map((isAlive, j) => {
+                  return Math.random() > 0.8;
+                })
+              })
+            }));
+          }}
+        />
         </div>
         {this.state.aliveMatrix.map((row, i) =>
           this.state.aliveMatrix[i].map((isAlive, j) =>
             <Cell
               handleClick={() => {
-                if (!this.isRunning) {
+                if (!this.state.isRunning) {
                   return this.setState(prevState => {
                     prevState.aliveMatrix[i][j] = !prevState.aliveMatrix[i][j];
                     return {aliveMatrix: prevState.aliveMatrix}});
