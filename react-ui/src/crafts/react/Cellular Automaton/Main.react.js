@@ -19,7 +19,6 @@ class Main extends React.Component {
   }
 
   updateDimensions = () => {
-    console.log("BLAAAA");
     let cellMatrix = [];
     const cols = window.innerWidth / 20;
     const rows = window.innerHeight / 20;
@@ -125,8 +124,8 @@ class Main extends React.Component {
           icon='erase'
           className="clear_button"
           onClick={() => {
-            !this.state.isRunning && this.cellMatrix.map((row, i) => {
-              return row.map((cell, j) => {
+            !this.state.isRunning && this.state.cellMatrix.map((row, i) => {
+              row.map((cell, j) => {
                 cell.alive = false;
               })
             });
