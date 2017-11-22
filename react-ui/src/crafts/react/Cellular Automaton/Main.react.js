@@ -1,9 +1,11 @@
 import React from 'react';
 import Cell from './Cell.react';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 // TODO better resize (don't clear everything)
-// TODO implement bar at top with buttons: one step, one play
+// TODO implement dropdown menu for settings
+// TODO implement generation #
+// TODO fix performance (more)
 
 class Main extends React.Component {
   constructor(props) {
@@ -11,25 +13,24 @@ class Main extends React.Component {
     this.state = {
       cols: 0,
       rows: 0,
-      aliveMatrix: [],
+      cellMatrix: [],
       isRunning: false
     };
   }
 
   updateDimensions = () => {
     console.log("BLAAAA");
-    let aliveMatrix = [];
+    let cellMatrix = [];
     const cols = window.innerWidth / 20;
     const rows = window.innerHeight / 20;
     for (let i = 0; i < cols; i++) {
-      aliveMatrix.push([]);
+      cellMatrix.push([]);
       for (let j = 0; j < rows; j++) {
-        aliveMatrix[i].push(false);
+        cellMatrix[i].push({alive: false, neighbors: 0});
       }
     }
-    this.setState({rows: rows, cols: cols, aliveMatrix: aliveMatrix});
+    this.setState({rows: rows, cols: cols, cellMatrix: cellMatrix});
   }
-
 
   componentWillMount() {
     this.updateDimensions(this);
@@ -39,49 +40,43 @@ class Main extends React.Component {
     window.addEventListener('resize', this.updateDimensions);
   }
 
+  inGrid(i,j) {
+    return i >= 0 && i < this.state.cols && j >= 0 && j < this.state.rows;
+  }
 
-  countNeighbors(i,j) {
+  countNeighbors(col,row) {
     let neighbors = 0;
-    if (i > 0) {
-      neighbors += Boolean(this.state.aliveMatrix[i-1][j-1])
-                + Boolean(this.state.aliveMatrix[i-1][j])
-                + Boolean(this.state.aliveMatrix[i-1][j+1])
+    for (var i = col - 1; i < col + 2; i++) {
+      for (var j = row - 1; j < row + 2; j++) {
+        if (this.inGrid(i,j)) {
+          neighbors += this.state.cellMatrix[i][j].alive
+        }
+      }
     }
-    neighbors += Boolean(this.state.aliveMatrix[i][j-1]) + Boolean(this.state.aliveMatrix[i][j+1])
-    if (i < this.state.cols - 1) {
-      neighbors += Boolean(this.state.aliveMatrix[i+1][j-1])
-                + Boolean(this.state.aliveMatrix[i+1][j])
-                + Boolean(this.state.aliveMatrix[i+1][j+1])
-    }
-    return neighbors;
+    return neighbors - this.state.cellMatrix[col][row].alive;
   }
 
   evolve() {
-    let neighbors = 0;
-    return this.setState(prevState => ({
-      aliveMatrix: prevState.aliveMatrix.map((row, i) => {
-        return row.map((isAlive, j) => {
-          neighbors = this.countNeighbors(i,j);
-          if (isAlive && (neighbors < 2 || neighbors > 3)) {
-            return false;
-          } else if (!isAlive && neighbors === 3) {
-            return true;
-          }
-          return isAlive;
+    this.state.cellMatrix.map((row, i) => {
+        row.map((cell, j) => {
+          cell.neighbors = this.countNeighbors(i,j);
         })
-      })
-    }));
-  }
+      });
+      this.state.cellMatrix.map((row, i) => {
+        row.map((cell, j) => {
+          if (cell.alive && (cell.neighbors < 2 || cell.neighbors > 3)) {
+            cell.alive = false;
+          } else if (!cell.alive && cell.neighbors === 3) {
+            cell.alive = true;
+          }
+        })
+        });
+      this.forceUpdate();
+    }
 
   render() {
     return (
-      <div
-        onKeyDown={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          return e.keyCode === 32 && this.evolve()}}
-        tabIndex='0'
-      >
+      <div>
         <div
           style={{
             position: 'absolute',
@@ -102,7 +97,7 @@ class Main extends React.Component {
           className="play_button"
           onClick={() => {
             if (!this.state.isRunning) {
-              this.setState({isRunning: setInterval(function(e) {e.evolve(); }, 200, this)});
+              this.setState({isRunning: setInterval(function(e) {e.evolve(); }, 150, this)});
             } else {
               clearInterval(this.state.isRunning);
               this.setState({isRunning: null});
@@ -130,13 +125,12 @@ class Main extends React.Component {
           icon='erase'
           className="clear_button"
           onClick={() => {
-            !this.state.isRunning && this.setState(prevState => ({
-              aliveMatrix: prevState.aliveMatrix.map((row, i) => {
-                return row.map((isAlive, j) => {
-                  return false;
-                })
+            !this.state.isRunning && this.cellMatrix.map((row, i) => {
+              return row.map((cell, j) => {
+                cell.alive = false;
               })
-            }));
+            });
+            this.forceUpdate();
           }}
         />
         <Button
@@ -149,28 +143,25 @@ class Main extends React.Component {
           icon='random'
           className="random_button"
           onClick={() => {
-            !this.state.isRunning && this.setState(prevState => ({
-              aliveMatrix: prevState.aliveMatrix.map((row, i) => {
-                return row.map((isAlive, j) => {
-                  return Math.random() > 0.8;
-                })
+            !this.state.isRunning && this.state.cellMatrix.map((row, i) => {
+              row.map((cell, j) => {
+                cell.alive = Math.random() > 0.8;
               })
-            }));
+            });
+            this.forceUpdate();
           }}
         />
         </div>
-        {this.state.aliveMatrix.map((row, i) =>
-          this.state.aliveMatrix[i].map((isAlive, j) =>
+        {this.state.cellMatrix.map((row, i) =>
+          this.state.cellMatrix[i].map((cell, j) =>
             <Cell
               handleClick={() => {
-                if (!this.state.isRunning) {
-                  return this.setState(prevState => {
-                    prevState.aliveMatrix[i][j] = !prevState.aliveMatrix[i][j];
-                    return {aliveMatrix: prevState.aliveMatrix}});
-                }
+                !this.state.isRunning && this.setState(prevState => {
+                    prevState.cellMatrix[i][j].alive = !prevState.cellMatrix[i][j].alive;
+                    return {cellMatrix: prevState.cellMatrix}});
               }}
               size={20}
-              alive={this.state.aliveMatrix[i][j]}
+              alive={this.state.cellMatrix[i][j].alive}
               row={i}
               col={j}/>
           )
