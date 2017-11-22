@@ -1,27 +1,41 @@
 import React from 'react';
 import Cell from './Cell.react';
-// TODO deal with resize
 // TODO deal with cells slightly off screen (change cell dimentions?)
 // TODO implement bar at top with buttons: one step, one play
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      cols: 0,
+      rows: 0,
+      aliveMatrix: []
+    };
+  }
+
+  updateDimensions = () => {
+    console.log("BLAAAA");
     let aliveMatrix = [];
     const cols = window.innerWidth / 20;
     const rows = window.innerHeight / 20;
-    for (let i = 0; i < cols; i++) { // best way to declare 50
+    for (let i = 0; i < cols; i++) {
       aliveMatrix.push([]);
       for (let j = 0; j < rows; j++) {
         aliveMatrix[i].push(false);
       }
     }
-    this.state = {
-      cols: cols,
-      rows: rows,
-      aliveMatrix: aliveMatrix
-    };
+    this.setState({rows: rows, cols: cols, aliveMatrix: aliveMatrix});
   }
+
+
+  componentWillMount() {
+    this.updateDimensions(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.updateDimensions);
+  }
+
 
   countNeighbors(i,j) {
     let neighbors = 0;
@@ -39,7 +53,7 @@ class Main extends React.Component {
     return neighbors;
   }
 
-  handleKey(e) {
+  evolve() {
     let neighbors = 0;
     return this.setState(prevState => ({
       aliveMatrix: prevState.aliveMatrix.map((row, i) => {
@@ -62,7 +76,7 @@ class Main extends React.Component {
         onKeyDown={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          return e.keyCode === 32 && this.handleKey(e)}}
+          return e.keyCode === 32 && this.evolve()}}
         tabIndex='0'
       >
         <div
@@ -82,8 +96,12 @@ class Main extends React.Component {
             width: 40,
             height: 40}}
           onMouseDown={() => {
-            let bla = setInterval(this.handleKey(), 100);
-            console.log(bla);
+            if (!this.isRunning) {
+              this.isRunning = setInterval(function(e) {e.evolve(); }, 150, this);
+            } else {
+              clearInterval(this.isRunning);
+              this.isRunning = null;
+            }
           }}
         >
           <img
@@ -99,9 +117,11 @@ class Main extends React.Component {
           this.state.aliveMatrix[i].map((isAlive, j) =>
             <Cell
               handleClick={() => {
-                return this.setState(prevState => {
-                  prevState.aliveMatrix[i][j] = !prevState.aliveMatrix[i][j];
-                  return {aliveMatrix: prevState.aliveMatrix}});
+                if (!this.isRunning) {
+                  return this.setState(prevState => {
+                    prevState.aliveMatrix[i][j] = !prevState.aliveMatrix[i][j];
+                    return {aliveMatrix: prevState.aliveMatrix}});
+                }
               }}
               size={20}
               alive={this.state.aliveMatrix[i][j]}
