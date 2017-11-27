@@ -32,7 +32,7 @@ class CellGrid extends React.Component {
   }
 
   componentWillMount() {
-    this.updateDimensions(this);
+    this.updateDimensions();
   }
 
   componentDidMount() {
@@ -53,6 +53,14 @@ class CellGrid extends React.Component {
       }
     }
     return neighbors - this.state.cellMatrix[col][row].alive;
+  }
+
+  clickCell(i,j) {
+    console.log(i);
+    this.setState(prevState => {
+      prevState.cellMatrix[i][j].alive = !prevState.cellMatrix[i][j].alive;
+      return {cellMatrix: prevState.cellMatrix};
+    });
   }
 
   evolve() {
@@ -78,14 +86,6 @@ class CellGrid extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isRunning && !this.props.isRunning) {
-      this.interval = setInterval(function(e) {e.evolve(); }, 100, this);
-    } else if (!nextProps.isRunning && this.props.isRunning) {
-      clearInterval(this.interval);
-    }
-  }
-
   clear() {
     this.state.cellMatrix.forEach((row, i) => {
       row.forEach((cell, j) => {
@@ -106,12 +106,12 @@ class CellGrid extends React.Component {
     this.setState({generation: 0});
   }
 
-  clickCell(i,j) {
-    console.log(i);
-    this.setState(prevState => {
-      prevState.cellMatrix[i][j].alive = !prevState.cellMatrix[i][j].alive;
-      return {cellMatrix: prevState.cellMatrix};
-    });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isRunning && !this.props.isRunning) {
+      this.interval = setInterval(function(e) {e.evolve(); }, 100, this);
+    } else if (!nextProps.isRunning && this.props.isRunning) {
+      clearInterval(this.interval);
+    }
   }
 
   render() {
