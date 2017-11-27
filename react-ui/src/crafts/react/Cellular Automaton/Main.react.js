@@ -2,11 +2,10 @@ import React from 'react';
 import CellGrid from './CellGrid.react';
 import { Button, Label } from 'semantic-ui-react';
 
-// TODO factor out code
-// TODO make top bar prettier
+// TODO pass generation up from cellGrid
+// TODO change top bar to dropDown and factor out (toggle visibility with button on low resolution)
 // TODO add description and image
 // TODO add speed slider
-
 
 class Main extends React.Component {
   constructor(props) {

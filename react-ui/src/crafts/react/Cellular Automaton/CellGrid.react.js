@@ -16,10 +16,10 @@ class CellGrid extends React.Component {
     let cellMatrix = [];
     const cols = window.innerWidth / 20;
     const rows = (window.innerHeight - 75) / 20;
-    for (let i = 0; i < cols; i++) {
+    for (let i = 0; i < rows; i++) {
       cellMatrix.push([]);
       let wasCol = this.state.cellMatrix[i];
-      for (let j = 0; j < rows; j++) {
+      for (let j = 0; j < cols; j++) {
         if (wasCol && this.state.cellMatrix[i][j]) {
           cellMatrix[i].push(this.state.cellMatrix[i][j]);
         } else {
@@ -39,7 +39,7 @@ class CellGrid extends React.Component {
   }
 
   inGrid(i,j) {
-    return i >= 0 && i < this.state.cols && j >= 0 && j < this.state.rows;
+    return i >= 0 && i < this.state.rows && j >= 0 && j < this.state.cols;
   }
 
   countNeighbors(col,row) {
@@ -103,26 +103,36 @@ class CellGrid extends React.Component {
     }, this);
 
     this.setState({generation: 0});
+  }
 
+  clickCell(i,j) {
+    this.setState(prevState => {
+      prevState.cellMatrix[i][j].alive = !prevState.cellMatrix[i][j].alive;
+      return {cellMatrix: prevState.cellMatrix};
+    });
   }
 
   render() {
     return (
       <div>
-        {this.state.cellMatrix.map((row, i) =>
-          this.state.cellMatrix[i].map((cell, j) =>
-              <Cell
-                handleClick={() => {
-                  !this.props.isRunning && this.setState(prevState => {
-                      prevState.cellMatrix[i][j].alive = !prevState.cellMatrix[i][j].alive;
-                      return {cellMatrix: prevState.cellMatrix}});
-                }}
-                size={20}
-                alive={this.state.cellMatrix[i][j].alive}
-                row={i}
-                col={j}/>
-          )
-        )}
+        <table
+          width="100%"
+          height="100%">
+          <tbody>
+            {this.state.cellMatrix.map((row, i) =>
+              <tr key={i}>
+                {this.state.cellMatrix[i].map((cell, j) =>
+                  <Cell
+                    handleClick={() => { !this.props.isRunning
+                                         && this.clickCell(i,j); }}
+                    size={20}
+                    alive={this.state.cellMatrix[i][j].alive}
+                    key={i * this.state.cols + j}/>
+                )}
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     )
   }
