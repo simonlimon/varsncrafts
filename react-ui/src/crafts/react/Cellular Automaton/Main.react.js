@@ -4,7 +4,7 @@ import { Button, Label } from 'semantic-ui-react';
 
 // TODO make top bar prettier
 // TODO add description and image
-// TODO deal with warnings for maps
+// TODO add speed slider
 
 
 class Main extends React.Component {
@@ -68,21 +68,21 @@ class Main extends React.Component {
   }
 
   evolve() {
-    this.state.cellMatrix.map((row, i) => {
-      row.map((cell, j) => {
+    this.state.cellMatrix.forEach((row, i) => {
+      row.forEach((cell, j) => {
         cell.neighbors = this.countNeighbors(i,j);
-      })
-    });
+      }, this);
+    }, this);
 
-    this.state.cellMatrix.map((row, i) => {
-      row.map((cell, j) => {
+    this.state.cellMatrix.forEach((row, i) => {
+      row.forEach((cell, j) => {
         if (cell.alive && !this.state.survivalRules[cell.neighbors]) {
           cell.alive = false;
         } else if (!cell.alive && this.state.birthRules[cell.neighbors]) {
           cell.alive = true;
         }
-      })
-    });
+      }, this)
+    }, this);
 
     this.setState(prevState => {
       prevState.generation += 1;
@@ -141,11 +141,11 @@ class Main extends React.Component {
           icon='erase'
           className="clear_button"
           onClick={() => {
-            !this.state.isRunning && this.state.cellMatrix.map((row, i) => {
-              row.map((cell, j) => {
+            !this.state.isRunning && this.state.cellMatrix.forEach((row, i) => {
+              row.forEach((cell, j) => {
                 cell.alive = false;
-              })
-            });
+              }, this)
+            }, this);
             this.setState({generation: 0});
           }}
         />
@@ -159,11 +159,11 @@ class Main extends React.Component {
           icon='random'
           className="random_button"
           onClick={() => {
-            !this.state.isRunning && this.state.cellMatrix.map((row, i) => {
-              row.map((cell, j) => {
+            !this.state.isRunning && this.state.cellMatrix.forEach((row, i) => {
+              row.forEach((cell, j) => {
                 cell.alive = Math.random() > 0.8;
-              })
-            });
+              }, this)
+            }, this);
             this.setState({generation: 0});
           }}
         />
