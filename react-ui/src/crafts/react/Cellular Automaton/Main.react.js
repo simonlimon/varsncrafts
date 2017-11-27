@@ -1,7 +1,8 @@
 import React from 'react';
-import Cell from './Cell.react';
+import CellGrid from './CellGrid.react';
 import { Button, Label } from 'semantic-ui-react';
 
+// TODO factor out code
 // TODO make top bar prettier
 // TODO add description and image
 // TODO add speed slider
@@ -11,32 +12,10 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cols: 0,
-      rows: 0,
-      cellMatrix: [],
       survivalRules: [],
       birthRules: [],
       isRunning: false,
-      generation: 0,
     };
-  }
-
-  updateDimensions = () => {
-    let cellMatrix = [];
-    const cols = window.innerWidth / 20;
-    const rows = (window.innerHeight - 75) / 20;
-    for (let i = 0; i < cols; i++) {
-      cellMatrix.push([]);
-      let wasCol = this.state.cellMatrix[i];
-      for (let j = 0; j < rows; j++) {
-        if (wasCol && this.state.cellMatrix[i][j]) {
-          cellMatrix[i].push(this.state.cellMatrix[i][j]);
-        } else {
-          cellMatrix[i].push({alive: false, neighbors: 0});
-        }
-      }
-    }
-    this.setState({rows: rows, cols: cols, cellMatrix: cellMatrix});
   }
 
   componentWillMount() {
@@ -44,50 +23,6 @@ class Main extends React.Component {
       birthRules: [false, false, false, true, false, false, false, false, false],
       survivalRules: [false, false, true, true, false, false, false, false, false]
     })
-    this.updateDimensions(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.updateDimensions);
-  }
-
-  inGrid(i,j) {
-    return i >= 0 && i < this.state.cols && j >= 0 && j < this.state.rows;
-  }
-
-  countNeighbors(col,row) {
-    let neighbors = 0;
-    for (var i = col - 1; i < col + 2; i++) {
-      for (var j = row - 1; j < row + 2; j++) {
-        if (this.inGrid(i,j)) {
-          neighbors += this.state.cellMatrix[i][j].alive
-        }
-      }
-    }
-    return neighbors - this.state.cellMatrix[col][row].alive;
-  }
-
-  evolve() {
-    this.state.cellMatrix.forEach((row, i) => {
-      row.forEach((cell, j) => {
-        cell.neighbors = this.countNeighbors(i,j);
-      }, this);
-    }, this);
-
-    this.state.cellMatrix.forEach((row, i) => {
-      row.forEach((cell, j) => {
-        if (cell.alive && !this.state.survivalRules[cell.neighbors]) {
-          cell.alive = false;
-        } else if (!cell.alive && this.state.birthRules[cell.neighbors]) {
-          cell.alive = true;
-        }
-      }, this)
-    }, this);
-
-    this.setState(prevState => {
-      prevState.generation += 1;
-      return {generation: prevState.generation};
-    });
   }
 
   render() {
@@ -95,9 +30,6 @@ class Main extends React.Component {
       <div>
         <div
           style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
             width: window.innerWidth,
             height: 75,
             backgroundColor: "#D3D3D3"}}
@@ -113,10 +45,9 @@ class Main extends React.Component {
           className="play_button"
           onClick={() => {
             if (!this.state.isRunning) {
-              this.setState({isRunning: setInterval(function(e) {e.evolve(); }, 100, this)});
+              this.setState({isRunning: true});
             } else {
-              clearInterval(this.state.isRunning);
-              this.setState({isRunning: null});
+              this.setState({isRunning: false});
             }
           }}
         />
@@ -129,7 +60,7 @@ class Main extends React.Component {
           size='large'
           icon='step forward'
           className="step_button"
-          onClick={() => {!this.state.isRunning && this.evolve();}}
+          onClick={() => {!this.state.isRunning && this.cellGrid.evolve();}}
         />
         <Button
           style={{
@@ -140,14 +71,7 @@ class Main extends React.Component {
           size='large'
           icon='erase'
           className="clear_button"
-          onClick={() => {
-            !this.state.isRunning && this.state.cellMatrix.forEach((row, i) => {
-              row.forEach((cell, j) => {
-                cell.alive = false;
-              }, this)
-            }, this);
-            this.setState({generation: 0});
-          }}
+          onClick={() => {!this.state.isRunning && this.cellGrid.clear();}}
         />
         <Button
           style={{
@@ -158,14 +82,7 @@ class Main extends React.Component {
           size='large'
           icon='random'
           className="random_button"
-          onClick={() => {
-            !this.state.isRunning && this.state.cellMatrix.forEach((row, i) => {
-              row.forEach((cell, j) => {
-                cell.alive = Math.random() > 0.8;
-              }, this)
-            }, this);
-            this.setState({generation: 0});
-          }}
+          onClick={() => {!this.state.isRunning && this.cellGrid.randomize();}}
         />
         <Label
           style={{
@@ -173,7 +90,7 @@ class Main extends React.Component {
             left: 300,
             top: 24,
           }}
-          content={'Generation: ' + this.state.generation}
+          content={"Generation: 0"}
         />
         <Button.Group
           style={{
@@ -213,20 +130,12 @@ class Main extends React.Component {
           )}
         </ Button.Group>
         </div>
-        {this.state.cellMatrix.map((row, i) =>
-          this.state.cellMatrix[i].map((cell, j) =>
-            <Cell
-              handleClick={() => {
-                !this.state.isRunning && this.setState(prevState => {
-                    prevState.cellMatrix[i][j].alive = !prevState.cellMatrix[i][j].alive;
-                    return {cellMatrix: prevState.cellMatrix}});
-              }}
-              size={20}
-              alive={this.state.cellMatrix[i][j].alive}
-              row={i}
-              col={j}/>
-          )
-        )}
+        <CellGrid
+          isRunning={this.state.isRunning}
+          birthRules={this.state.birthRules}
+          survivalRules={this.state.survivalRules}
+          ref={(input) => { this.cellGrid = input; }}
+        />
       </div>
     )
   }
