@@ -17,8 +17,6 @@ class CraftRoot extends React.PureComponent {
       craftTitle +
       '/_info.json');
 
-    console.log(this.craftInfo);
-
     switch (craftType) {
       case 'p5':
         this.craft = <P5Craft title={craftTitle} />;
