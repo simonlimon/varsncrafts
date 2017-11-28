@@ -1,6 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
-import Chroma from 'chroma-js';
 import ColorCircle from './ColorCircle.react';
 
 class ColorWheel extends React.Component {

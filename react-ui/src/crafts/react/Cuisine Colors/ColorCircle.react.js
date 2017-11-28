@@ -61,8 +61,9 @@ class ColorCircle extends React.Component {
                 height: this.props.radius * 3
               }}
             >
-              <img
+              <alt
                 src={this.props.href}
+                alt={'Image source: ' + this.props.href}
                 style={{
                   height: '100%',
                   width: 'auto',

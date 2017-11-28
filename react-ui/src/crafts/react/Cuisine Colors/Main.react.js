@@ -1,7 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
 import Chroma from 'chroma-js';
-import ColorCircle from './ColorCircle.react';
 import ColorWheel from './ColorWheel.react';
 import Select from 'react-select';
 import { Loader } from 'semantic-ui-react';
@@ -42,7 +41,7 @@ class Main extends React.Component {
 
       // move colors into array
       let colors = [];
-      Object.keys(result.data).map(image => {
+      Object.keys(result.data).forEach(image => {
         colors = colors.concat(
           result.data[image].slice(0, 3).map(color => {
             return [

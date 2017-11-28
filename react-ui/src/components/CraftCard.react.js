@@ -5,15 +5,6 @@ import { Link } from 'react-router';
 import anime from 'animejs';
 
 class CraftCard extends React.PureComponent {
-  static propTypes = {
-    image: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired,
-    keywords: React.PropTypes.string.isRequired,
-    description: React.PropTypes.string.isRequired,
-    date: React.PropTypes.string.isRequired,
-    type: React.PropTypes.oneOf(['p5', 'react'])
-  };
-
   componentWillMount() {
     this.name = this.props.title.replace(/\s+/g, '');
   }
