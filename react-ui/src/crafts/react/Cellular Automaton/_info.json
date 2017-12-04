@@ -1,10 +1,12 @@
 {
   "title": "Cellular Automaton",
-  "image": "/assets/images/work-in-progress.svg",
-  "description": "Harry.",
-  "instructions": "Harry.",
-  "keywords": "Harry | React.js",
-  "date": "November 2017",
-  "timestamp": "2017/11/14",
+  "image": "/assets/images/cellular-automaton.png",
+  "description":
+    "A simple simulation of the life cycle of cells. Watch populations evolve over generations",
+  "instructions":
+    "Click to place living cells, and press play to watch them evolve. Whether a cell live or dies (or comes to life) is decided by how many neighbors it has. Edit the rules and see how it affects evolution.",
+  "keywords": "React.js | Cellular Automaton | Conway's Game of Live",
+  "date": "December 2017",
+  "timestamp": "2017/12/04",
   "type": "react"
 }

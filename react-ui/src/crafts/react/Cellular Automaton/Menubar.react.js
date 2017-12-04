@@ -4,9 +4,7 @@ import { Button, Label, Menu, Sidebar } from 'semantic-ui-react';
 class Menubar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      rules: 'Birth'
-    };
+    this.state = { rules: 'Birth' };
   }
 
   changeRules = () => {
@@ -72,6 +70,7 @@ class Menubar extends React.Component {
         </Menu.Item>
         <Menu.Item name='generation'>
           <Label content={"Generation: " + this.props.generation} />
+          <div style={{width:50}} />
         </Menu.Item>
       </Sidebar>
     )

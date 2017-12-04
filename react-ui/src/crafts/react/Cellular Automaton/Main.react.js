@@ -3,7 +3,6 @@ import CellGrid from './CellGrid.react';
 import Menubar from './Menubar.react';
 import { Sidebar } from 'semantic-ui-react';
 
-
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -70,8 +69,6 @@ class Main extends React.Component {
               size={20}
             />
         </Sidebar.Pushable>
-
-
       </div>
     )
   }
