@@ -4,9 +4,7 @@ import { Button, Label, Menu, Sidebar } from 'semantic-ui-react';
 class Menubar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      rules: 'Birth'
-    };
+    this.state = { rules: 'Birth' };
   }
 
   changeRules = () => {
@@ -42,7 +40,7 @@ class Menubar extends React.Component {
 
   render() {
     return (
-      <Sidebar as={Menu} animation='push' direction='top' visible={true}>
+      <Sidebar as={Menu} animation='overlay' direction='top' visible={true}>
         <Menu.Item style={{width:50}} />
         <Menu.Item name='controls'>
           <Button.Group basic>

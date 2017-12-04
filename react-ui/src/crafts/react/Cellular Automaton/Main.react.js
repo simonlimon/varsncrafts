@@ -1,8 +1,6 @@
 import React from 'react';
 import CellGrid from './CellGrid.react';
 import Menubar from './Menubar.react';
-import { Sidebar } from 'semantic-ui-react';
-
 
 class Main extends React.Component {
   constructor(props) {
@@ -47,31 +45,27 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <Sidebar.Pushable>
-          <Menubar
-            isRunning={this.state.isRunning}
-            birthRules={this.state.birthRules}
-            survivalRules={this.state.survivalRules}
-            play={() => {this.setState({isRunning: !this.state.isRunning});}}
-            step={() => {!this.state.isRunning && this.cellGrid.evolve();}}
-            clear={() => {!this.state.isRunning && this.cellGrid.clear();}}
-            randomize={() => {!this.state.isRunning && this.cellGrid.randomize();}}
-            setBirthRule={this.setBirthRule}
-            setSurvivalRule={this.setSurvivalRule}
-            generation={this.state.generation}
-          />
-            <CellGrid
-              isRunning={this.state.isRunning}
-              birthRules={this.state.birthRules}
-              survivalRules={this.state.survivalRules}
-              ref={(grid) => { this.cellGrid = grid; }}
-              updateGeneration={this.updateGeneration}
-              resetGeneration={this.resetGeneration}
-              size={20}
-            />
-        </Sidebar.Pushable>
-
-
+        <Menubar
+          isRunning={this.state.isRunning}
+          birthRules={this.state.birthRules}
+          survivalRules={this.state.survivalRules}
+          play={() => {this.setState({isRunning: !this.state.isRunning});}}
+          step={() => {!this.state.isRunning && this.cellGrid.evolve();}}
+          clear={() => {!this.state.isRunning && this.cellGrid.clear();}}
+          randomize={() => {!this.state.isRunning && this.cellGrid.randomize();}}
+          setBirthRule={this.setBirthRule}
+          setSurvivalRule={this.setSurvivalRule}
+          generation={this.state.generation}
+        />
+        <CellGrid
+          isRunning={this.state.isRunning}
+          birthRules={this.state.birthRules}
+          survivalRules={this.state.survivalRules}
+          ref={(grid) => { this.cellGrid = grid; }}
+          updateGeneration={this.updateGeneration}
+          resetGeneration={this.resetGeneration}
+          size={20}
+        />
       </div>
     )
   }
