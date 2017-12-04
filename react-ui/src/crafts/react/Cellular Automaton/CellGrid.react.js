@@ -7,7 +7,8 @@ class CellGrid extends React.Component {
     this.state = {
       cols: 0,
       rows: 0,
-      cellMatrix: []
+      cellMatrix: [],
+      generation: 0
     };
   }
 
@@ -80,7 +81,7 @@ class CellGrid extends React.Component {
 
       return {cellMatrix: prevState.cellMatrix};
     })
-
+    
     this.props.updateGeneration();
   }
 
