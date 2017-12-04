@@ -5,7 +5,8 @@ class Menubar extends React.Component {
 
   render() {
     return (
-      <Sidebar as={Menu} animation='push' direction='top' visible={true} stackable={true}>
+      <Sidebar as={Menu} animation='push' direction='top' visible={true}>
+        <Menu.Item style={{width:50}} />
         <Menu.Item name='play'>
           <Button.Group basic>
           <Button
@@ -53,8 +54,9 @@ class Menubar extends React.Component {
           </Button.Group>
         </Menu.Item>
         <Menu.Item name='generation'>
-          <Label content={"Generation: 0"} />
+          <Label content={"Generation: " + this.props.generation} />
         </Menu.Item>
+        <Menu.Item style={{width:50}} />
       </Sidebar>
     )
   }

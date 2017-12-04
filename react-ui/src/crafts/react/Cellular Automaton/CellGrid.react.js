@@ -14,9 +14,8 @@ class CellGrid extends React.Component {
 
   updateDimensions = () => {
     let cellMatrix = [];
-    const cols = Math.floor(window.innerWidth / 20);
-    const rows = Math.floor((window.innerHeight - 75) / 20);
-    console.log("Rows: " + rows);
+    const cols = window.innerWidth / this.props.size;
+    const rows = window.innerHeight / this.props.size;
     for (let i = 0; i < rows; i++) {
       cellMatrix.push([]);
       let wasCol = this.state.cellMatrix[i];
@@ -56,7 +55,6 @@ class CellGrid extends React.Component {
   }
 
   clickCell(i,j) {
-    console.log(i);
     this.setState(prevState => {
       prevState.cellMatrix[i][j].alive = !prevState.cellMatrix[i][j].alive;
       return {cellMatrix: prevState.cellMatrix};
@@ -127,7 +125,7 @@ class CellGrid extends React.Component {
                   <Cell
                     handleClick={() => { !this.props.isRunning
                                          && this.clickCell(i,j); }}
-                    size={20}
+                    size={this.props.size}
                     alive={this.state.cellMatrix[i][j].alive}
                     key={i * this.state.cols + j}/>
                 )}
