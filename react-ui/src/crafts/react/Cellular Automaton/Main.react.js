@@ -3,8 +3,6 @@ import CellGrid from './CellGrid.react';
 import Menubar from './Menubar.react';
 import { Sidebar } from 'semantic-ui-react';
 
-// TODO place cell grid correctly within its div (and get it pushed down correctly)
-// TODO make dropdown for birth/survival rules
 // TODO pass generation up from cellGrid
 // TODO add description and image
 // TODO add speed slider
