@@ -3,9 +3,6 @@ import CellGrid from './CellGrid.react';
 import Menubar from './Menubar.react';
 import { Sidebar } from 'semantic-ui-react';
 
-// TODO pass generation up from cellGrid
-// TODO add description and image
-// TODO add speed slider
 
 class Main extends React.Component {
   constructor(props) {
@@ -13,7 +10,8 @@ class Main extends React.Component {
     this.state = {
       survivalRules: [],
       birthRules: [],
-      isRunning: false
+      isRunning: false,
+      generation: 0
     };
   }
 
@@ -38,6 +36,14 @@ class Main extends React.Component {
     });
   }
 
+  updateGeneration = () => {
+    this.setState(prevState => {return {generation: prevState.generation + 1}});
+  }
+
+  resetGeneration = () => {
+    this.setState({generation: 0});
+  }
+
   render() {
     return (
       <div>
@@ -52,13 +58,15 @@ class Main extends React.Component {
             randomize={() => {!this.state.isRunning && this.cellGrid.randomize();}}
             setBirthRule={this.setBirthRule}
             setSurvivalRule={this.setSurvivalRule}
-            generation={0}
+            generation={this.state.generation}
           />
             <CellGrid
               isRunning={this.state.isRunning}
               birthRules={this.state.birthRules}
               survivalRules={this.state.survivalRules}
               ref={(grid) => { this.cellGrid = grid; }}
+              updateGeneration={this.updateGeneration}
+              resetGeneration={this.resetGeneration}
               size={20}
             />
         </Sidebar.Pushable>

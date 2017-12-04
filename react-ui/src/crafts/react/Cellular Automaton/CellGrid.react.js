@@ -62,46 +62,53 @@ class CellGrid extends React.Component {
   }
 
   evolve() {
-    this.state.cellMatrix.forEach((row, i) => {
-      row.forEach((cell, j) => {
-        cell.neighbors = this.countNeighbors(i,j);
-      }, this);
-    }, this);
-
-    this.state.cellMatrix.forEach((row, i) => {
-      row.forEach((cell, j) => {
-        if (cell.alive && !this.props.survivalRules[cell.neighbors]) {
-          cell.alive = false;
-        } else if (!cell.alive && this.props.birthRules[cell.neighbors]) {
-          cell.alive = true;
-        }
-      }, this)
-    }, this);
-
     this.setState(prevState => {
-      prevState.generation += 1;
-      return {generation: prevState.generation};
-    });
+      this.state.cellMatrix.forEach((row, i) => {
+        row.forEach((cell, j) => {
+          cell.neighbors = this.countNeighbors(i,j);
+        }, this);
+      }, this);
+
+      this.state.cellMatrix.forEach((row, i) => {
+        row.forEach((cell, j) => {
+          if (cell.alive && !this.props.survivalRules[cell.neighbors]) {
+            cell.alive = false;
+          } else if (!cell.alive && this.props.birthRules[cell.neighbors]) {
+            cell.alive = true;
+          }
+        }, this)
+      }, this);
+
+      return {cellMatrix: prevState.cellMatrix};
+    })
+    
+    this.props.updateGeneration();
   }
 
   clear() {
-    this.state.cellMatrix.forEach((row, i) => {
-      row.forEach((cell, j) => {
-        cell.alive = false;
-      }, this)
-    }, this);
+    this.setState(prevState => {
+      this.state.cellMatrix.forEach((row, i) => {
+        row.forEach((cell, j) => {
+          cell.alive = false;
+        }, this)
+      }, this);
+      return {cellMatrix: prevState.cellMatrix};
+    })
 
-    this.setState({generation: 0});
+    this.props.resetGeneration();
   }
 
   randomize() {
-    this.state.cellMatrix.forEach((row, i) => {
-      row.forEach((cell, j) => {
-        cell.alive = Math.random() > 0.8;
-      }, this)
-    }, this);
+    this.setState(prevState => {
+      prevState.cellMatrix.forEach((row, i) => {
+        row.forEach((cell, j) => {
+          cell.alive = Math.random() > 0.8;
+        }, this)
+      }, this);
+      return {cellMatrix: prevState.cellMatrix};
+    })
 
-    this.setState({generation: 0});
+    this.props.resetGeneration();
   }
 
   componentWillReceiveProps(nextProps) {
