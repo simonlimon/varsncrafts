@@ -2,10 +2,10 @@
   "title": "Cellular Automaton",
   "image": "/assets/images/cellular-automaton.png",
   "description":
-    "A simple simulation of the life cycle of cells. Watch populations evolve over generations",
+    "A simple simulation of the life cycle of cells. Watch populations evolve over generations. By Harry Bendekgey",
   "instructions":
-    "Click to place living cells, and press play to watch them evolve. Whether a cell live or dies (or comes to life) is decided by how many neighbors it has. Edit the rules and see how it affects evolution.",
-  "keywords": "React.js | Cellular Automaton | Conway's Game of Live",
+    "Click to place living cells, and press play to watch them evolve. Whether a cell live or dies (or comes to life) is decided by how many neighbors it has. Edit the rules and see how it affects evolution. By Harry Bendekgey",
+  "keywords": "React.js | Cellular Automaton | Conway's Game of Live | Harry Bendekgey",
   "date": "December 2017",
   "timestamp": "2017/12/04",
   "type": "react"
